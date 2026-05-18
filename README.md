@@ -271,3 +271,10 @@ Este projeto serve como:
 Desenvolvido como projeto de estudo para evolução em backend, automação e engenharia de dados.
 
 ---
+
+
+
+
+
+# ATIVAR O TUNNEL
+cloudflared.exe  tunnel --url http://localhost:5000
