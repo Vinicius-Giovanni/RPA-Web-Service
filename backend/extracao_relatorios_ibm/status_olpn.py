@@ -8,6 +8,6 @@ async def login_page():
 
         url = "https://prweb01/bahia/gateway?hptAppId=W1A1&hptExec=Y"
 
-        await page.goto(url)
+        page.goto(url)
 
-        await page.wait_for_timeout_500
+        page.wait_for_timeout_500
