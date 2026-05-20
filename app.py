@@ -20,15 +20,15 @@ templates = Jinja2Templates(directory='frontend/templates')
 app.mount("/static", StaticFiles(directory="frontend/static"), name="static")
 
 @app.get('/', response_class=HTMLResponse)
-def home(request: Request):
+def index(request: Request):
     return templates.TemplateResponse(
         request=request,
-        name='login.html',
+        name='index.html',
         context={}
     )
 
-@app.post('/', response_class=HTMLResponse)
-def home(request: Request):
+@app.get('/login', response_class=HTMLResponse)
+def login(request: Request):
     return templates.TemplateResponse(
         request=request,
         name='login.html',
@@ -36,7 +36,7 @@ def home(request: Request):
     )
 
 @app.get('/cadastro', response_class=HTMLResponse)
-def home(request: Request):
+def register(request: Request):
     return templates.TemplateResponse(
         request=request,
         name='register.html',
