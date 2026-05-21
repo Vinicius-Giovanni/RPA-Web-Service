@@ -1,10 +1,14 @@
-import uvicorn
+from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+from app.routes.routes import router
+app = FastAPI()
 
-if __name__ == '__main__':
+# Mount the static files directory
+app.mount('/static', StaticFiles(directory='frontend/static'), name='static')
 
-    uvicorn.run(
-        'app.routes.routes:routes',
-        host='0.0.0.0',
-        port=5000,
-        reload=True
-    )
+# Set up templates
+templates = Jinja2Templates(directory='frontend/templates')
+
+# include routers
+app.include_router(router)

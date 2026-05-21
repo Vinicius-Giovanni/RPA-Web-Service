@@ -1,0 +1,7 @@
+* {
+    align-items: center;
+    box-sizing: border-box;
+    display: flex;
+    font-family: "Inter", sans-serif;
+    justify-content: center;
+}
