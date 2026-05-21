@@ -12,3 +12,6 @@ wheels/
 
 # __init__
 \__init__.py
+
+# env
+.env
