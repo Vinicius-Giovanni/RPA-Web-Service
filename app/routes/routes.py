@@ -11,7 +11,7 @@ templates = Jinja2Templates(directory='frontend/templates')
 
 # Rota index
 @router.get('/', response_class=HTMLResponse)
-async def index(request: Request, current_user: dict = Depends(get_current_user)):
+async def index(request: Request):
     return templates.TemplateResponse(
         request=request,
         name='index.html',
