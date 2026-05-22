@@ -20,7 +20,7 @@ async def index(request: Request, current_user: dict = Depends(get_current_user)
 
 # Rota Dashboard
 @router.get('/dashboard', response_class=HTMLResponse)
-async def read_users(request: Request):
+async def read_users(request: Request, current_user: dict = Depends(get_current_user)):
     response = supabase.table('user_table').select("full_name").execute()
     users = response.data
     return templates.TemplateResponse(
