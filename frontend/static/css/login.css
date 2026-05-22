@@ -8,15 +8,15 @@
 }
 
 .logo {
-    font-size: 36px;
+    font-size: 50px;
     text-transform: uppercase;
     letter-spacing: 4px;
     font-weight: 600;
     color: #fff;
     text-decoration:none;
     display: flex;
-    justify-content: center;
-    padding-bottom: 20%;
+    text-align: left;
+    margin-bottom: 40%;
 }
   
 body {
@@ -160,4 +160,3 @@ body {
     margin-bottom: 10x;
     font-weight: 500;
 }
-
