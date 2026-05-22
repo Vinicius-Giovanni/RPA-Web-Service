@@ -9,7 +9,7 @@ async def auth_middleware(request:Request, call_next):
     token = request.cookies.get('acess_token')
     if token and token.startswith('Bearer '):
         token = token.split(' ')[1]
-        request.headers.__dict__['list'].append(
+        request.headers.__dict__['_list'].append(
             (b'authorization', f"Bearer {token}".encode())
         )
 
@@ -21,4 +21,12 @@ def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(securit
         token = credentials.credentials
         if token.startswith('Bearer '):
             token = token.split(' ')[1]
-        payload = jwt.decode(token, SUPABASE_JWT)
+        payload = jwt.decode(token, SUPABASE_JWT, algorithms=['HS256'], options={'verify_aud': False})
+        user_id = payload.get('sub')
+        if user_id is None:
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail='Invalid auth creds')
+        return payload
+    except jwt.ExpiredSignatureError:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail='Token has expired')
+    except jwt.PyJWKError as e:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail='Could not validate user')
