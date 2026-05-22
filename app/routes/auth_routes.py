@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Request, Form, HTTPException
+from pydantic import EmailStr, ValidationError
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from starlette.responses import Response
@@ -19,10 +20,19 @@ async def signup(request: Request):
 
 @router.post('/cadastro')
 async def signup_login(full_name: str = Form(...), email: str = Form(...), password: str = Form(...)):
-    try:
-        normalized_email = email.strip().lower()
-        normalized_name = full_name.strip()
+    normalized_email = email.strip().lower()
+    normalized_name = full_name.strip()
 
+    try:
+        # Validação local para retornar feedback mais claro antes de chamar o banco de dados.
+        normalize_email = str(EmailStr(normalize_email))
+    except ValidationError:
+        raise HTTPException(
+            status_code=400,
+            detail='Email inválido. Verifique se o endereço está completo e sem espaços extras.'
+        )
+    
+    try:
         auth_response = supabase.auth.sign_up({
             'email': normalized_email,
             'password': password,
@@ -42,10 +52,19 @@ async def signup_login(full_name: str = Form(...), email: str = Form(...), passw
         }).execute()
         
         return RedirectResponse('/login', status_code=303)
+    except HTTPException:
+        raise
     except Exception as e:
         error_message = str(e)
-        raise HTTPException(status_code=400,
-                            detail='Email inválido. Verifique se o endereço está completo e sem espaços extras.')
+        lowered_error = error_message.lower()
+
+        if 'email' in lowered_error and ('invalid' in lowered_error or 'invalid' in lowered_error):
+            raise HTTPException(
+                status_code=400,
+                detail='Email inválido. Verifique se o endereço esta completo e sem espaços extras.'
+            )
+        
+        raise HTTPException(status_code=400, detail=error_message)
     
 
 @router.get('/login', response_class=HTMLResponse)
