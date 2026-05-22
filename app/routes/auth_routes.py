@@ -18,14 +18,26 @@ async def signup(request: Request):
     )
 
 @router.post('/cadastro')
-async def signup_login(email: str = Form(...), password: str = Form(...)):
+async def signup_login(full_name: str = Form(...), email: str = Form(...), password: str = Form(...)):
     try:
         auth_response = supabase.auth.sign_up({
             'email': email,
-            'password': password
+            'password': password,
+            'options': {
+                'data': {
+                    'full_name': full_name
+                }
+            }
         })
         if auth_response.user is None:
             raise HTTPException(status_code=400, detail='Signup failed')
+        
+        supabase.table('user_table').insert({
+            'full_name': full_name,
+            'email': email,
+            'auth_user_id': auth_response.user.id
+        }).execute()
+        
         return RedirectResponse('/login', status_code=303)
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
