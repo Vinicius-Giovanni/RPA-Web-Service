@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Request, Form, HTTPException
-from pydantic import EmailStr, ValidationError
+from pydantic import EmailStr, ValidationError, TypeAdapter
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from starlette.responses import Response
@@ -25,7 +25,7 @@ async def signup_login(full_name: str = Form(...), email: str = Form(...), passw
 
     try:
         # Validação local para retornar feedback mais claro antes de chamar o banco de dados.
-        normalize_email = str(EmailStr(normalized_email))
+        normalized_email = TypeAdapter(EmailStr).validate_python(normalized_email)
     except ValidationError:
         raise HTTPException(
             status_code=400,
