@@ -4,10 +4,29 @@ from jwt import PyJWKClient
 
 from core.database import SUPABASE_URL,SUPABASE_JWKS_URL
 
+"""
+Cliente responsável por buscar as chaves públicas (JWKS)
+usadas para validar assinaturas dos tokens JWT emitidos pelo Supabase.
+"""
 jwks_client = PyJWKClient(SUPABASE_URL+SUPABASE_JWKS_URL)
 
 def get_current_user(request: Request):
+    """
+    Autentica o usuário com base no token JWT armazenado em cookie.
 
+    Essa função valida o toke usando a chave pública (JWKS) do provedor
+    de autenticação (Supabase) e retorna o payload decodificado.
+
+    Args:
+        request (Request): Requisição HTTP do FastAPI contendo os cookies.
+    Returns:
+        dict: Payload decodificado do JWT contendo informações do usuário autenticado.
+    Raises:
+    HTTPException:
+        - 401 Not authenticated: quando não existe token no cookie
+        - 401 Token expired: quando o token JWT expirou
+        - 401 Invalid token: quando o token é inválido ou não pode ser verificado
+    """
     token = request.cookies.get('access_token')
 
     if not token:
