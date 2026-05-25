@@ -9,6 +9,7 @@ load_dotenv(dotenv_path=ENV_PATH)
 SUPABASE_URL = os.getenv("API_URL")
 SUPABASE_KEY = os.getenv("API_KEY_ANON_PUBLIC")
 SUPABASE_JWT = os.getenv("JWT_SECRET")
+SUPABASE_JWKS_URL = os.getenv("JWKS_URL")
 
 if not all([SUPABASE_URL, SUPABASE_KEY, SUPABASE_JWT]):
     raise EnvironmentError("One or more Supabase environment variables are missing")
