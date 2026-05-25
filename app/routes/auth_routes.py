@@ -48,7 +48,7 @@ async def signup_login(full_name: str = Form(...), email: str = Form(...), passw
         supabase.table('user_table').insert({
             'full_name': normalized_name,
             'email': normalized_email,
-            'auth_user_id': auth_response.user.id
+            'id': auth_response.user.id
         }).execute()
         
         return RedirectResponse('/login', status_code=303)
@@ -77,18 +77,30 @@ async def login(request: Request):
 
 @router.post('/login', response_class=HTMLResponse)
 async def login_auth(response: Response, email: str = Form(...), password: str = Form(...)):
+    normalized_email = email.strip().lower()
+
+    try:
+        # Validação local para retornar feedback mais claro antes de chamar o banco de dados.
+        normalized_email = TypeAdapter(EmailStr).validate_python(normalized_email)
+    except ValidationError:
+        raise HTTPException(
+            status_code=400,
+            detail='Email inválido. Verifique se o endereço está completo e sem espaços extras.'
+        )
+    
     try:
         auth_response = supabase.auth.sign_in_with_password({
-            'email': email,
+            'email': normalized_email,
             'password': password
         })
         if auth_response.user is None:
             raise HTTPException(status_code=400, detail='Login failed')
         access_token = auth_response.session.access_token
         response = RedirectResponse('/dashboard', status_code=303)
-        response.set_cookie(key='access_token', value=f'Bearer {access_token}', httponly=True)
+        response.set_cookie(key='access_token', value=access_token, httponly=True, secure=False, samesite='lax')
         return response
     except Exception as e:
+        print(str(e))
         raise HTTPException(status_code=400, detail=str(e))
 
 @router.get('/logout')

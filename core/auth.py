@@ -1,10 +1,8 @@
-from fastapi import Depends, HTTPException, Request, status
+from fastapi import Request, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 import jwt
 
 from .database import SUPABASE_JWT
-
-security = HTTPBearer()
 
 async def auth_middleware(request:Request, call_next):
     """
@@ -22,15 +20,45 @@ async def auth_middleware(request:Request, call_next):
     response = await call_next(request)
     return response
 
-def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security)):
+def get_current_user(request: Request):
+
+    token = request.cookies.get('access_token')
+
+    if not token:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail='Cookies not authenticated'
+        )
+
     try:
-        token = credentials.credentials
-        payload = jwt.decode(token, SUPABASE_JWT, algorithms=['HS256'], options={'verify_aud': False})
+
+        payload = jwt.decode(
+            token,
+            SUPABASE_JWT,
+            algorithms=['HS256'],
+            options={'verify_aud': False}
+        )
+
         user_id = payload.get('sub')
+
         if user_id is None:
-            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail='Invalid auth creds')
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail='Invalid auth creds'
+            )
+        
         return payload
+    
     except jwt.ExpiredSignatureError:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail='Token has expired')
+
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail='Token has expired'
+        )
+
     except jwt.PyJWTError:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail='Could not validate user')
+
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail='Could not validate user'
+        )
