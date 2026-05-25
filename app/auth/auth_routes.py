@@ -168,14 +168,14 @@ async def login_auth(response: Response, email: str = Form(...), password: str =
         print(str(e))
         raise HTTPException(status_code=400, detail=str(e))
 
-# @router.get('/logout')
-# async def logout(response: Response):
-#     """
-#     Remove o cookie de autenticação e encerra a sessão.
+@router.get('/logout')
+async def logout(response: Response):
+    """
+    Remove o cookie de autenticação e encerra a sessão.
 
-#     Returns:
-#         RedirectResponse: redireciona para login.
-#     """
-#     response = RedirectResponse('/', status_code=303)
-#     response.delete_cookie(key='access_token')
-#     return response
+    Returns:
+        RedirectResponse: redireciona para login.
+    """
+    response = RedirectResponse('/', status_code=303)
+    response.delete_cookie(key='access_token')
+    return response
