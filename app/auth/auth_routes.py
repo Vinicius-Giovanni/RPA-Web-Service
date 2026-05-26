@@ -105,7 +105,7 @@ async def login(request: Request):
     Renderiza a página de login.
 
     Args:
-        request (Request): requisição HTTP.
+        request (Request): requisição HTTP do FastAPI.
 
     Returns:
         HTMLResponse: página login.html renderizada.
@@ -127,7 +127,7 @@ async def login_auth(response: Response, email: str = Form(...), password: str =
         3. Autentica no Supabase
         4. Gera session token
         5. Armazena token em cookie HttpOnly
-        6. Redireciona para dashboard
+        6. Redireciona para index
 
     Args:
         response (Response): resposta HTTP (FastAPI)
