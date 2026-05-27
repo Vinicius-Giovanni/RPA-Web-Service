@@ -18,11 +18,12 @@
             </div>
             <ul class="nav-list">
                 {% if request.cookies.get('access_token') %}
+                <li><a href="/landpage">Início</a></li>
                 <li><a href="/logout">Logout</a></li>
                 {% else %}
                 <li><a href="/login">Login</a></li>
-                {% endif %}
                 <li><a href="/cadastro">Cadastre-se</a></li>
+                {% endif %}
             </ul>
         </nav>
     </header>
