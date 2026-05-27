@@ -56,6 +56,11 @@ main {
     margin-left: 50px;
 }
 
+.carousel-wrapper {
+    position: relative;
+    width: 100%
+}
+
 
 .carousel {
     width: 100%;
@@ -67,63 +72,53 @@ main {
 
     scroll-behavior: smooth;
 
-    anchor-name: --carousel;
     scroll-snap-type: x mandatory;
-    scroll-marker-group: after;
 
     padding-bottom: 1rem;
+    scrollbar-width: none;
 }
 
-.carousel::scroll-marker-group {
-    display: flex;
-    justify-content: center;
-    gap: .5em;
-}
-
-.card::scroll-marker{
-    content: '';
-    height: 1em;
-    width: 1em;
-    background-color: #000;
-    border-radius: 50%;
-}
-
-.card::scroll-marker:target-current{
-    background-color: rgb(22, 3, 196);
-}
-
-.carousel::-webkit-scrollbar{
+.carousel::-webkit-scrollbar {
     display: none;
 }
 
-.carousel::scroll-button(right), .carousel::scroll-button(left){
-    content: '›';
-    color: #fff;
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
     border: none;
     background-color: transparent;
+    color: #fff;
     font-size: 3rem;
-    height: 60px;
-    width: 60px;
-    border-radius: 50%;
-    padding-bottom: .1em;
+    line-height: 1;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
-    position: fixed;
-    position-anchor: --carousel;
-    position-area: right center;
-    translate: -50%;
-
+    z-index: 2;
+    transition: color 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
 }
 
-.carousel::scroll-button(left){
-    content: '‹';
-    position-area: left center;
-    translate: 50%;
+.carousel-btn.prev {
+    left: 0.5rem;
 }
 
-.carousel::scroll-button(right):disabled, .carousel::scroll-button(left):disabled {
-    opacity: 0.5;
-    cursor: auto;
+.carousel-btn.next {
+    right: 0.5rem;
 }
+
+.carousel-btn:hover {
+    color: #d7d7d7;
+    transform: translateY(-50%) scale(1.06);
+}
+
+.carousel-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
 .card {
     width: clamp(250px, 20vw, 400px);
     height: clamp(250px, 55vh, 500px);
@@ -182,6 +177,12 @@ main {
 
     .nav-list li {
         margin-left: 20px;
+    }
+
+    .carousel-btn {
+        font-size: 2.2rem;
+        width: 2.4rem;
+        height: 2.4rem;
     }
 
     .card {
