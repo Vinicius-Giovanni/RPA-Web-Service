@@ -161,7 +161,7 @@ async def login_auth(response: Response, email: str = Form(...), password: str =
         if auth_response.user is None:
             raise HTTPException(status_code=400, detail='Login failed')
         access_token = auth_response.session.access_token
-        response = RedirectResponse('/', status_code=303)
+        response = RedirectResponse('/landpage', status_code=303)
         response.set_cookie(key='access_token', value=access_token, httponly=True, secure=False, samesite='lax', path='/')
         return response
     except Exception as e:

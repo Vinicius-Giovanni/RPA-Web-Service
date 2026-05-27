@@ -40,3 +40,15 @@ async def dashboard(request: Request,
             'user_email': current_user['email']
             }
     )
+
+# Rota landpange
+@router.get('/landpage', response_class=HTMLResponse)
+async def landpage(request: Request, 
+                   current_user: dict = Depends(get_current_user)):
+    return templates.TemplateResponse(
+        name="landpage.html",
+        request=request,
+        context={
+            'user_email': current_user['email']
+        }
+    )
