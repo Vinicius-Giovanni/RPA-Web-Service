@@ -1,4 +1,5 @@
 from supabase import create_client, Client
+from fastapi import Depends
 import os
 
 from settings.paths import ENV_PATH
@@ -16,3 +17,4 @@ if not all([SUPABASE_URL, SUPABASE_KEY, SUPABASE_JWT]):
 
 # Initialize Supabase client
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
+
