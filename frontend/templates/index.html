@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
     <title>WaveHub</title>
 </head>
 <body>
@@ -20,6 +21,7 @@
                 {% if request.cookies.get('access_token') %}
                 <li><a href="/landpage">Início</a></li>
                 <li><a href="/logout">Logout</a></li>
+                <li><a href="#">{{ user_name.split()[0] }}  <i class="fa-solid fa-user"></i></a></li>
                 {% else %}
                 <li><a href="/login">Login</a></li>
                 <li><a href="/cadastro">Cadastre-se</a></li>
