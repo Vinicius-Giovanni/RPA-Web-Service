@@ -45,10 +45,16 @@ async def dashboard(request: Request,
 @router.get('/landpage', response_class=HTMLResponse)
 async def landpage(request: Request, 
                    current_user: dict = Depends(get_current_user)):
+    
+    user_data = supabase.table('user_table').select('full_name').eq('id', current_user['sub']).single().execute()
+
+    full_name = user_data.data['full_name']
+
     return templates.TemplateResponse(
         name="landpage.html",
         request=request,
         context={
-            'user_email': current_user['email']
+            'user_email': current_user['email'],
+            'user_name': full_name
         }
     )

@@ -79,7 +79,7 @@ async def signup_login(full_name: str = Form(...), email: str = Form(...), passw
         
         supabase.table('user_table').insert({
             'full_name': normalized_name,
-            'email': normalized_email,
+            # 'email': normalized_email,
             'id': auth_response.user.id
         }).execute()
         
