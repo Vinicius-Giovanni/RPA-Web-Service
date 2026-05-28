@@ -26,9 +26,19 @@ a:hover {
 }
 
 body {
-    background: url("/static/img/landpage_gradient.png") no-repeat center center;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(18, 3, 157, 0.75),
+            rgba(13, 2, 108, 0.85),
+            rgba(6, 1, 55, 0.92)
+        ),
+            url("/static/img/berrini.png");
+    
+    background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    background-attachment: fixed;
 
     min-height: 100vh;
 
