@@ -10,6 +10,10 @@
 
 }
 
+.descricao img {
+    transform: translateY(20%);
+}
+
 a:hover {
     opacity: 0.7;
 }
