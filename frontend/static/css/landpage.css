@@ -163,6 +163,10 @@ nav a:hover::after {
     cursor: not-allowed;
 }
 
+.carousel.expanding {
+    overflow: visible;
+}
+
 .card {
     width: clamp(250px, 20vw, 400px);
     height: clamp(250px, 55vh, 500px);
@@ -183,9 +187,56 @@ nav a:hover::after {
     justify-content: space-between;
 
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    position: relative;
+
+    transform-origin: center center;
+
+    will-change: transform;
+}
+
+.expand-btn {
+    position: absolute;
+
+    bottom: 1rem;
+    right: 1rem;
+
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.12);
+
+    backdrop-filter: blur(5px);
+
+    transition: all 0.3s ease;
+}
+
+.expand-btn img {
+    width: 24px;
+    height: 24px;
+}
+
+.expand-btn:hover {
+    transform: scale(1.12);
+
+    background: rgba(255, 255, 255, 0.22);
+
+    cursor: pointer;
 }
 
 .card:hover {
+    transform: scale(1.05);
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.card:not(.expand):hover {
     transform: scale(1.05);
 
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
@@ -223,6 +274,34 @@ nav a:hover::after {
     url("../img/par_min.jpeg");
 }
 
+.card.expand {
+    z-index: 999;
+
+    transform: scale(1.15);
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),box-shadow 0.6s ease;
+
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+
+}
+
+.card.expand::before {
+    content: "";
+
+    position: fixed;
+    inset: 0;
+
+    backdrop-filter: blur(8px);
+
+    z-index: -1;
+}
+
+.carousel.fade .card:not(.expand) {
+    opacity: 0;
+
+    transform: scale(0.9);
+
+    transition: 0.4s ease;
+}
 
 @media (max-width: 768px) {
 

@@ -39,3 +39,28 @@ if (carousel && nextButton && prevButton) {
 
     updateButtons();
 }
+
+const expandButtons = document.querySelectorAll(".expand-btn")
+
+expandButtons.forEach(button => {
+
+    button.addEventListener("click", (e) => {
+        
+        e.preventDefault();
+
+        const card = button.closest(".card");
+
+        const carousel = document.querySelector(".carousel");
+
+        const destination = button.getAttribute("href");
+
+        carousel.classList.add("fade");
+        carousel.classList.add("expanding")
+
+        card.classList.add("expand");
+
+        setTimeout(() => {
+            window.location.href = destination;
+        }, 650);
+    });
+});

@@ -39,10 +39,18 @@
                 <div class="card card1">
                     <h3>CD 1200</h3>
                     <div class="card-info">
-                        <p>Demanda:</p>
-                        <p>Pessoas:</p>
-                        <p>Finalizado:</p>
+                        {% for sector in sectors %}
+                        {% if sector['id_sector'] == 1 %}
+                        <p>Demanda: {{ sector['demand'] }}</p>
+                        <p>Pessoas: {{ sector['peoples'] }}</p>
+                        <p>Finalizado: 45%</p>
+                        {% endif %}
+                        {% endfor %}
                     </div>
+
+                    <a href="/" class="expand-btn">
+                        <img src="../static/img/expand_content_icon.png" alt="Expandir">
+                    </a>
                 </div>
 
                 <div class="card card2">
@@ -52,6 +60,10 @@
                         <p>Pessoas:</p>
                         <p>Finalizado:</p>
                     </div>
+
+                    <a href="/" class="expand-btn">
+                        <img src="../static/img/expand_content_icon.png" alt="Expandir">
+                    </a>
                 </div>
 
                 <div class="card card3">
@@ -61,6 +73,10 @@
                         <p>Pessoas:</p>
                         <p>Finalizado:</p>
                     </div>
+
+                    <a href="/" class="expand-btn">
+                        <img src="../static/img/expand_content_icon.png" alt="Expandir">
+                    </a>
                 </div>
 
                 <div class="card card4">
@@ -70,6 +86,10 @@
                         <p>Pessoas:</p>
                         <p>Finalizado:</p>
                     </div>
+
+                    <a href="/" class="expand-btn">
+                        <img src="../static/img/expand_content_icon.png" alt="Expandir">
+                    </a>
                 </div>
 
                 <div class="card card5">
@@ -79,6 +99,10 @@
                         <p>Pessoas:</p>
                         <p>Finalizado:</p>
                     </div>
+
+                    <a href="/" class="expand-btn">
+                        <img src="../static/img/expand_content_icon.png" alt="Expandir">
+                    </a>
                 </div>
             </div>
 

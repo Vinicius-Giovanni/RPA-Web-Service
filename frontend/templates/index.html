@@ -21,7 +21,6 @@
                 {% if request.cookies.get('access_token') %}
                 <li><a href="/landpage">Início</a></li>
                 <li><a href="/logout">Logout</a></li>
-                <li><a href="#">{{ user_name.split()[0] }}  <i class="fa-solid fa-user"></i></a></li>
                 {% else %}
                 <li><a href="/login">Login</a></li>
                 <li><a href="/cadastro">Cadastre-se</a></li>
