@@ -1,6 +1,7 @@
-const carousel = document.querySelector('.carousel');
-const nextButton = document.querySelector('.carousel-btn.next');
-const prevButton = document.querySelector('.carousel-btn.prev');
+document.querySelectorAll('.carousel-wrapper').forEach(wrapper => {
+const carousel = wrapper.querySelector('.carousel');
+const nextButton = wrapper.querySelector('.carousel-btn.next');
+const prevButton = wrapper.querySelector('.carousel-btn.prev');
 
 if (carousel && nextButton && prevButton) {
     const getScrollDistance = () => {
@@ -39,6 +40,7 @@ if (carousel && nextButton && prevButton) {
 
     updateButtons();
 }
+});
 
 const expandButtons = document.querySelectorAll(".expand-btn")
 
@@ -50,7 +52,7 @@ expandButtons.forEach(button => {
 
         const card = button.closest(".card");
 
-        const carousel = document.querySelector(".carousel");
+        const carousel = button.closest(".carousel")
 
         const destination = button.getAttribute("href");
 

@@ -61,3 +61,140 @@ async def landpage(request: Request,
             't_peo': t_peo
         }
     )
+
+# Rota abastecimento
+@router.get('/abastecimento', response_class=HTMLResponse)
+async def landpage(request: Request, 
+                   current_user: dict = Depends(get_current_user),
+                   user_name: str = Depends(name_user_auth)):
+    
+    sectors = await demand_sector()
+
+    return templates.TemplateResponse(
+        name="setor_abastecimento.html",
+        request=request,
+        context={
+            'user_email': current_user['email'],
+            'user_name': user_name,
+            'sectors': sectors,
+        }
+    )
+
+@router.get('/online', response_class=HTMLResponse)
+async def landpage(request: Request, 
+                   current_user: dict = Depends(get_current_user),
+                   user_name: str = Depends(name_user_auth)):
+    
+    sectors = await demand_sector()
+
+    return templates.TemplateResponse(
+        name="setor_online.html",
+        request=request,
+        context={
+            'user_email': current_user['email'],
+            'user_name': user_name,
+            'sectors': sectors,
+        }
+    )
+
+@router.get('/pesados', response_class=HTMLResponse)
+async def landpage(request: Request, 
+                   current_user: dict = Depends(get_current_user),
+                   user_name: str = Depends(name_user_auth)):
+    
+    sectors = await demand_sector()
+
+    return templates.TemplateResponse(
+        name="setor_pesados.html",
+        request=request,
+        context={
+            'user_email': current_user['email'],
+            'user_name': user_name,
+            'sectors': sectors,
+        }
+    )
+
+@router.get('/par', response_class=HTMLResponse)
+async def landpage(request: Request, 
+                   current_user: dict = Depends(get_current_user),
+                   user_name: str = Depends(name_user_auth)):
+    
+    sectors = await demand_sector()
+
+    return templates.TemplateResponse(
+        name="setor_par.html",
+        request=request,
+        context={
+            'user_email': current_user['email'],
+            'user_name': user_name,
+            'sectors': sectors,
+        }
+    )
+
+@router.get('/1200-outbound', response_class=HTMLResponse)
+async def landpage(request: Request, 
+                   current_user: dict = Depends(get_current_user),
+                   user_name: str = Depends(name_user_auth)):
+    
+    sectors = await demand_sector()
+
+    return templates.TemplateResponse(
+        name="1200_outbound.html",
+        request=request,
+        context={
+            'user_email': current_user['email'],
+            'user_name': user_name,
+            'sectors': sectors,
+        }
+    )
+
+@router.get('/1200-inbound', response_class=HTMLResponse)
+async def landpage(request: Request, 
+                   current_user: dict = Depends(get_current_user),
+                   user_name: str = Depends(name_user_auth)):
+    
+    sectors = await demand_sector()
+
+    return templates.TemplateResponse(
+        name="1200_inbound.html",
+        request=request,
+        context={
+            'user_email': current_user['email'],
+            'user_name': user_name,
+            'sectors': sectors,
+        }
+    )
+
+@router.get('/recebimento', response_class=HTMLResponse)
+async def landpage(request: Request, 
+                   current_user: dict = Depends(get_current_user),
+                   user_name: str = Depends(name_user_auth)):
+    
+    sectors = await demand_sector()
+
+    return templates.TemplateResponse(
+        name="setor_recebimento.html",
+        request=request,
+        context={
+            'user_email': current_user['email'],
+            'user_name': user_name,
+            'sectors': sectors,
+        }
+    )
+
+@router.get('/retorno', response_class=HTMLResponse)
+async def landpage(request: Request, 
+                   current_user: dict = Depends(get_current_user),
+                   user_name: str = Depends(name_user_auth)):
+    
+    sectors = await demand_sector()
+
+    return templates.TemplateResponse(
+        name="setor_retorno.html",
+        request=request,
+        context={
+            'user_email': current_user['email'],
+            'user_name': user_name,
+            'sectors': sectors,
+        }
+    )

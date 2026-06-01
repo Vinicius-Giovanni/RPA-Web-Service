@@ -5,26 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WaveHub</title>
     <link rel="stylesheet" href="/static/css/landpage.css">
+    <link rel="stylesheet" href="/static/css/global.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=expand_content" />
 </head>
 <body>
 
-    <header>
-        <nav>
-            <a class="logo" href="/">WaveHub</a>
-            <div class="mobile-menu">
-                <div class="line1"></div>
-                <div class="line2"></div>
-                <div class="line3"></div>
-            </div>
-            <ul class="nav-list">
-                <li><a href="#">Bot's  <i class="fa-solid fa-robot"></i></a></li>
-                <li><a href="#">RPA's  <i class="fa-solid fa-gears"></i></a></li>
-                <li><a href="#">{{ user_name.split()[0] }}  <i class="fa-solid fa-user"></i></a></li>
-            </ul>
-        </nav>
-    </header>
+    {% include 'components/navbar.html' %}
+
     <main>
         <div class="descricao">
             <p>
@@ -32,19 +20,24 @@
                 Para uma análise mais aprofundada, selecione <img src="../static/img/expand_content_icon.png" alt="expand"> no card correspondente.
             </p>
         </div>
+
+        <div class="in_out">
+            Outbound
+        </div>
+
         <div class="carousel-wrapper">
             <button class="carousel-btn prev" type="button" aria-label="Scroll left">‹</button>
 
             <div class="carousel">
                 <div class="card card1">
-                    <h3>CD 1200</h3>
+                    <h3>CD 1200 Outbound</h3>
                     <div class="card-info">
                         <p>Demanda: {{ t_dem }}</p>
                         <p>Pessoas: {{ t_peo }}</p>
                         <p>Finalizado: 45%</p>
                     </div>
 
-                    <a href="/" class="expand-btn">
+                    <a href="/1200-outbound" class="expand-btn">
                         <img src="../static/img/expand_content_icon.png" alt="Expandir">
                     </a>
                 </div>
@@ -61,7 +54,7 @@
                         {% endfor %}
                     </div>
 
-                    <a href="/" class="expand-btn">
+                    <a href="/abastecimento" class="expand-btn">
                         <img src="../static/img/expand_content_icon.png" alt="Expandir">
                     </a>
                 </div>
@@ -78,7 +71,7 @@
                         {% endfor %}
                     </div>
 
-                    <a href="/" class="expand-btn">
+                    <a href="/online" class="expand-btn">
                         <img src="../static/img/expand_content_icon.png" alt="Expandir">
                     </a>
                 </div>
@@ -95,7 +88,7 @@
                         {% endfor %}
                     </div>
 
-                    <a href="/" class="expand-btn">
+                    <a href="/pesados" class="expand-btn">
                         <img src="../static/img/expand_content_icon.png" alt="Expandir">
                     </a>
                 </div>
@@ -112,7 +105,66 @@
                         {% endfor %}
                     </div>
 
-                    <a href="/" class="expand-btn">
+                    <a href="/par" class="expand-btn">
+                        <img src="../static/img/expand_content_icon.png" alt="Expandir">
+                    </a>
+                </div>
+            </div>
+
+            <button class="carousel-btn next" type="button" aria-label="Scroll right">›</button>
+        </div>
+
+        <div class="in_out">
+            Inbound
+        </div>
+
+        <div class="carousel-wrapper">
+            <button class="carousel-btn prev" type="button" aria-label="Scroll left">‹</button>
+
+            <div class="carousel">
+                <div class="card card6">
+                    <h3>CD 1200 Inbound</h3>
+                    <div class="card-info">
+                        <p>Demanda: {{ t_dem }}</p>
+                        <p>Pessoas: {{ t_peo }}</p>
+                        <p>Finalizado: 45%</p>
+                    </div>
+
+                    <a href="/1200-inbound" class="expand-btn">
+                        <img src="../static/img/expand_content_icon.png" alt="Expandir">
+                    </a>
+                </div>
+
+                <div class="card card7">
+                    <h3>Recebimento</h3>
+                    <div class="card-info">
+                        {% for sector in sectors %}
+                        {% if sector['id_sector'] == 1 %}
+                        <p>Recebendo: {{ sector['demand'] }}</p>
+                        <p>Pessoas: {{ sector['peoples'] }}</p>
+                        <p>Finalizado:</p>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+
+                    <a href="/recebimento" class="expand-btn">
+                        <img src="../static/img/expand_content_icon.png" alt="Expandir">
+                    </a>
+                </div>
+
+                <div class="card card8">
+                    <h3>Retorno</h3>
+                    <div class="card-info">
+                        {% for sector in sectors %}
+                        {% if sector['id_sector'] == 2 %}
+                        <p>Retornando: {{ sector['demand'] }}</p>
+                        <p>Pessoas: {{ sector['peoples'] }}</p>
+                        <p>Finalizado:</p>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+
+                    <a href="/retorno" class="expand-btn">
                         <img src="../static/img/expand_content_icon.png" alt="Expandir">
                     </a>
                 </div>
