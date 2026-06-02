@@ -24,7 +24,9 @@ document.querySelectorAll('.liquid-sidebar-layout').forEach((layout) => {
     toggle.addEventListener('click', () => {
         const isCollapsed = layout.classList.toggle('is-sidebar-collapsed');
         toggle.setAttribute('aria-expanded', String(!isCollapsed));
-        toggle.setAttribute('aria-label', isCollapsed ? 'Mostrar menu lateral' : 'Esconder menu lateral',
+        toggle.setAttribute(
+            'aria-label',
+            isCollapsed ? 'Mostrar menu lateral' : 'Esconder menu lateral',
         );
-    })
-})
+    });
+});

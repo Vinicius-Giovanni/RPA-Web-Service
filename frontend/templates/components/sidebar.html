@@ -18,7 +18,7 @@
     </aside>
 
     <button class="liquid-sidebar-toggle" type="button" aria-label="Esconder menu lateral" aria-expanded="true">
-        <span class="liquid-sidebar-toggle__icon" aria-hidden="true">‹‹</span>
+        <span class="liquid-sidebar-toggle__icon" aria-hidden="true">‹</span>
     </button>
 
     <section class="liquid-sidebar-frame" aria-live="polite">
@@ -26,7 +26,7 @@
         <article class="liquid-sidebar-panel liquid-sidebar-panel--bot--{{ bot }}">
             <div class="liquid-sidebar-panel__header">
                 <span>Bot {{ bot }}</span>
-                <h1>Conversa com bot {{ bot }}</h1>
+                <h1>Conversa com bot{{ bot }}</h1>
                 <p>Abra a grid do chat para acompanhar as mensagens e continuar a conversa com o bot selecionado.</p>
             </div>
 
@@ -34,14 +34,14 @@
                 <div class="bot-chat-grid__conversation">
                     <div class="bot-chat-message bot-chat-message--bot">
                         <strong>bot{{ bot }}</strong>
-                        <p>Olá! Sou o bot {{ bot }}. Como posso te ajudar hoj?</p>
+                        <p>Olá! Sou o bot{{ bot }}. Como posso te ajudar hoje?</p>
                     </div>
                     <div class="bot-chat-message bot-chat-message--user">
                         <strong>Você</strong>
                         <p>Quero iniciar uma nova conversa.</p>
                     </div>
                     <div class="bot-chat-message bot-chat-message--bot">
-                        <strong>bot {{ bot }}</strong>
+                        <strong>bot{{ bot }}</strong>
                         <p>Perfeito, envie sua mensagem no campo abaixo para começarmos.</p>
                     </div>
                 </div>
