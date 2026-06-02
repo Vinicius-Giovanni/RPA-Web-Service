@@ -198,3 +198,17 @@ async def landpage(request: Request,
             'sectors': sectors,
         }
     )
+
+@router.get('/rpa', response_class=HTMLResponse)
+async def landpage(request: Request, 
+                   current_user: dict = Depends(get_current_user),
+                   user_name: str = Depends(name_user_auth)):
+
+    return templates.TemplateResponse(
+        name="rpa.html",
+        request=request,
+        context={
+            'user_email': current_user['email'],
+            'user_name': user_name,
+        }
+    )
