@@ -60,3 +60,345 @@ nav a:hover::after {
     width: 100%;
     background-color: #fff;
 }
+
+.liquid-sidebar-layout {
+    width: 100%;
+    min-height: calc(100vh - 80px);
+}
+
+.liquid-sidebar-layout {
+    width: 100%;
+    min-height: calc(100vh - 80px);
+    display: grid;
+    grid-template-columns: 300px minma(0, 1fr);
+    overflow: hidden;
+}
+
+.liquid-sidevar-state {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.liquid-sidebar {
+    height: calc(100vh - 80px);
+    background: #060137;
+    border-radius: 0 32px 32px 0;
+    box-shadow: 16px 0 40px rgba(6, 1, 55, 0.32);
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color:rgba(255, 255, 255, 0.55) rgba(255, 255, 255, 0.08);
+    padding: 2rem 1.25rem;
+}
+
+.liquid-sidebar::-webkit-scrollbar {
+    width: 8px;
+}
+
+.liquid-sidebar::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
+}
+
+.liquid-sidebar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.55);
+    border-radius: 999px
+}
+
+.liquid-sidebar__header {
+    margin-bottom: 1.75rem;
+    padding: 0 0.5rem
+}
+
+.liquid-sidebar__eyebrow {
+    display: inline-block;
+    margin-bottom: 0.35rem;
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.2rem;
+    text-transform: uppercase;
+}
+
+.liquid-sidebar__header h2 {
+    font-size: 1.55rem;
+    line-height: 1.1;
+}
+
+.liquid-sidebar__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    padding-bottom: 2rem;
+}
+
+.liquid-sidebar__item {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    align-items: center;
+    min-height: 52px;
+    padding: 0.85rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.01);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.78);
+    cursor: pointer;
+    overflow: hidden;
+    transition: color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+
+.liquid-sidebar__item:before,
+.liquid-sidebar__item:after {
+    content: "";
+    position: absolute;
+    inset: auto;
+    z-index: -1;
+    border-radius: 999px;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.45s ease;
+}
+
+.liquid-sidebar__item:before {
+    width: 160px;
+    height: 160px;
+    right: -56px;
+    top: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.96) 0%, rgba(105, 221, 255, 0.86) 42%, rgba(46, 95, 255, 0.78) 72%);
+    filter: blur(1px);
+    transform: translateY(-50%) scale(0.18);
+}
+
+.liquid-sidebar__item:after {
+    width: 72px;
+    height: 72px;
+    right: 36px;
+    bottom: -34px;
+    background: rgba(255, 255, 255, 0.75);
+    filter: blur(12px);
+    transform: scale(0.3);
+}
+
+.liquid-sidebar__item:hover {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.35);
+    transform: translateX(4px);
+}
+
+.liquid-sidebar-panel {
+    display: none;
+}
+
+#panel-status-olpn:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-status-olpn"],
+#panel-automation-2:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-2"],
+#panel-automation-3:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-3"],
+#panel-automation-4:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-4"],
+#panel-automation-5:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-5"],
+#panel-automation-6:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-6"],
+#panel-automation-7:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-7"],
+#panel-automation-8:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-8"],
+#panel-automation-9:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-9"],
+#panel-automation-10:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-10"],
+#panel-automation-11:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-11"],
+#panel-automation-12:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-12"],
+#panel-automation-13:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-13"],
+#panel-automation-14:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-14"],
+#panel-automation-15:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-15"] {
+    color: #060137;
+    border-color: rgba(255, 255, 255, 0.85);
+    box-shadow: inset 0 0 26px rgba(255, 255, 255, 0.22), 0 16px 28px rgba(0, 0, 0, 0.2);
+}
+
+#panel-status-olpn:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-status-olpn"]::before,
+#panel-status-olpn:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-status-olpn"]::after,
+#panel-automation-2:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-2"]::before,
+#panel-automation-2:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-2"]::after,
+#panel-automation-3:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-3"]::before,
+#panel-automation-3:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-3"]::after,
+#panel-automation-4:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-4"]::before,
+#panel-automation-4:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-4"]::after,
+#panel-automation-5:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-5"]::before,
+#panel-automation-5:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-5"]::after,
+#panel-automation-6:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-6"]::before,
+#panel-automation-6:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-6"]::after,
+#panel-automation-7:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-7"]::before,
+#panel-automation-7:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-7"]::after,
+#panel-automation-8:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-8"]::before,
+#panel-automation-8:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-8"]::after,
+#panel-automation-9:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-9"]::before,
+#panel-automation-9:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-9"]::after,
+#panel-automation-10:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-10"]::before,
+#panel-automation-10:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-10"]::after,
+#panel-automation-11:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-11"]::before,
+#panel-automation-11:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-11"]::after,
+#panel-automation-12:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-12"]::before,
+#panel-automation-12:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-12"]::after,
+#panel-automation-13:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-13"]::before,
+#panel-automation-13:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-13"]::after,
+#panel-automation-14:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-14"]::before,
+#panel-automation-14:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-14"]::after,
+#panel-automation-15:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-15"]::before,
+#panel-automation-15:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-15"]::after {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+}
+
+#panel-status-olpn:checked ~ .liquid-sidebar-frame .liquid-sidebar-panel--status,
+#panel-automation-2:checked ~ .liquid-sidebar-frame .liquid-sidebar-panel--automation-2,
+#panel-automation-3:checked ~ .liquid-sidebar-frame .liquid-sidebar-panel--automation-3,
+#panel-automation-4:checked ~ .liquid-sidebar-frame .liquid-sidebar-panel--automation-4,
+#panel-automation-5:checked ~ .liquid-sidebar-frame .liquid-sidebar-panel--automation-5,
+#panel-automation-6:checked ~ .liquid-sidebar-frame .liquid-sidebar-panel--automation-6,
+#panel-automation-7:checked ~ .liquid-sidebar-frame .liquid-sidebar-panel--automation-7,
+#panel-automation-8:checked ~ .liquid-sidebar-frame .liquid-sidebar-panel--automation-8,
+#panel-automation-9:checked ~ .liquid-sidebar-frame .liquid-sidebar-panel--automation-9,
+#panel-automation-10:checked ~ .liquid-sidebar-frame .liquid-sidebar-panel--automation-10,
+#panel-automation-11:checked ~ .liquid-sidebar-frame .liquid-sidebar-panel--automation-11,
+#panel-automation-12:checked ~ .liquid-sidebar-frame .liquid-sidebar-panel--automation-12,
+#panel-automation-13:checked ~ .liquid-sidebar-frame .liquid-sidebar-panel--automation-13,
+#panel-automation-14:checked ~ .liquid-sidebar-frame .liquid-sidebar-panel--automation-14,
+#panel-automation-15:checked ~ .liquid-sidebar-frame .liquid-sidebar-panel--automation-15 {
+    display: block;
+    animation: liquid-panel-in 0.35s ease both;
+}
+
+.liquid-sidebar-frame {
+    min-height: calc(100vh - 80px);
+    padding: 2.5rem;
+    overflow-y: auto;
+}
+
+.liquid-sidebar-panel {
+    width: min(860px, 100%);
+    min-height: 440px;
+    margin: 0 auto;
+    padding: 2.4rem;
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    border-radius: 32px;
+    background: rgba(6, 1, 55, 0.58);
+    box-shadow: 0 28px 80px rgba(0, 0, 0, 0.26);
+    backdrop-filter: blur(16px);
+}
+
+.liquid-sidebar-panel__header {
+    margin-bottom: 2rem;
+}
+
+.liquid-sidebar-panel__header span {
+    display: inline-flex;
+    margin-bottom: 0.65rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.14);
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08rem;
+    text-transform: uppercase;
+}
+
+.liquid-sidebar-panel__header h1 {
+    font-size: clamp(2rem, 4vw, 3.3rem);
+    line-height: 1;
+    margin-bottom: 0.75rem;
+}
+
+.liquid-sidebar-panel__header p {
+    max-width: 620px;
+    color: rgba(255, 255, 255, 0.72);
+}
+
+.liquid-form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.1rem;
+}
+
+.liquid-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    color: rgba(255, 255, 255, 0.86);
+    font-size: 0.92rem;
+    font-weight: 600;
+}
+
+.liquid-form input {
+    width: 100%;
+    min-height: 48px;
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    border-radius: 16px;
+    outline: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    padding: 0 1rem;
+}
+
+.liquid-form input::placeholder {
+    color: rgba(255, 255, 255, 0.48);
+}
+
+.liquid-form input:focus {
+    border-color: rgba(105, 221, 255, 0.9);
+    box-shadow: 0 0 0 4px rgba(105, 221, 255, 0.16);
+}
+
+.liquid-form button {
+    width: fit-content;
+    min-height: 48px;
+    grid-column: 1 / -1;
+    border: none;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #ffffff, #69ddff);
+    color: #060137;
+    cursor: pointer;
+    font-weight: 800;
+    padding: 0 1.6rem;
+    box-shadow: 0 18px 30px rgba(6, 1, 55, 0.28);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.liquid-form button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 22px 34px rgba(6, 1, 55, 0.34);
+}
+
+@keyframes liquid-panel-in {
+    from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.985);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@media (max-width: 900px) {
+    .liquid-sidebar-layout {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        overflow: visible;
+    }
+
+    .liquid-sidebar {
+        height: auto;
+        max-height: 360px;
+        border-radius: 0 0 28px 28px;
+    }
+
+    .liquid-sidebar-frame {
+        min-height: auto;
+        padding: 1.25rem;
+        overflow: visible;
+    }
+
+    .liquid-form {
+        grid-template-columns: 1fr;
+    }
+}

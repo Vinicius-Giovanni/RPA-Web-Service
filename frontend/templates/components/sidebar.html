@@ -1,0 +1,90 @@
+<main class="liquid-sidebar-layout" arial-label="área de automações">
+    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="ppanel-automation-1" checked>  
+    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-automation-2">  
+    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-automation-3">  
+    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-automation-4">  
+    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-automation-5">  
+    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-automation-6">  
+    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-automation-7">  
+    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-automation-8">  
+    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-automation-9">  
+    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-automation-10">  
+    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-automation-11">  
+    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-automation-12">  
+    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-automation-13">  
+    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-automation-14">  
+    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-automation-15">  
+
+    <aside class="liquid-sidebar" aria-label="Menu de automações">
+        <div class="liquid-sidebar__header">
+            <span class="liquid-sidebar__eyebrow">Menu</span>
+            <h2>Automações</h2>
+        </div>
+
+        <nav class="liquid-sidebar__nav" aria-label="Lista de automações">
+            <label class="liquid-sidebar__item" for="panel-automation-1">3.11 - Status oLPN</label>
+            <label class="liquid-sidebar__item" for="panel-automation-2">Automação 2</label>
+            <label class="liquid-sidebar__item" for="panel-automation-3">Automação 3</label>
+            <label class="liquid-sidebar__item" for="panel-automation-4">Automação 4</label>
+            <label class="liquid-sidebar__item" for="panel-automation-5">Automação 5</label>
+            <label class="liquid-sidebar__item" for="panel-automation-6">Automação 6</label>
+            <label class="liquid-sidebar__item" for="panel-automation-7">Automação 7</label>
+            <label class="liquid-sidebar__item" for="panel-automation-8">Automação 8</label>
+            <label class="liquid-sidebar__item" for="panel-automation-9">Automação 9</label>
+            <label class="liquid-sidebar__item" for="panel-automation-10">Automação 10</label>
+            <label class="liquid-sidebar__item" for="panel-automation-11">Automação 11</label>
+            <label class="liquid-sidebar__item" for="panel-automation-12">Automação 12</label>
+            <label class="liquid-sidebar__item" for="panel-automation-13">Automação 13</label>
+            <label class="liquid-sidebar__item" for="panel-automation-14">Automação 14</label>
+            <label class="liquid-sidebar__item" for="panel-automation-15">Automação 15</label>
+        </nav>
+    </aside>
+
+    <section class="liquid-sidebar-frame" aria-live="polite">
+        <article class="liquid-sidebar-panel liquid-sidebar-panel--status">
+            <div class="liquid-sidebar-panel__header">
+                <span>3.11</span>
+                <h1>Status oLPN</h1>
+                <p>Informe os filtros abaixo para consultar o status das oLPNs.</p>
+            </div>
+
+            <form class="liquid-form">
+                <label>
+                    Filial
+                    <input type="text" name="filial" placeholder="Digite a filial">
+                </label>
+                <label>
+                    Data Início
+                    <input type="date" name="data_inicio">
+                </label>
+                <label>
+                    Data Final
+                    <input type="date" name="data_final">
+                </label>
+                <button type="button">Executar automação</button>
+            </form>
+        </article>
+
+        {% for automation in range(2, 16) %}
+        <article class="liquid-sidebar-panel liquid-sidebar-panel--automation-{{ automation }}">
+            <div class="liquid-sidebar-panel__header">
+                <span>Automação {{ automation }}</span>
+                <h1>Automação {{ automation }}</h1>
+                <p>Preencha as informações necessárias para esta automação.</p>
+            </div>
+
+            <form class="liquid-form">
+                <label>
+                    Filial
+                    <input type="text" name="filial_{{ automation }}" placeholder="Digite a filial">
+                </label>
+                <label>
+                    Template
+                    <input type="text" name="template_{{ automation }}" placeholder="Digite o template">
+                </label>
+                <button type="button">Executar automação</button>
+            </form>
+        </article>
+        {% endfor %}
+    </section>
+</main>

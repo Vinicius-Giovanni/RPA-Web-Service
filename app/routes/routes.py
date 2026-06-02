@@ -212,3 +212,17 @@ async def landpage(request: Request,
             'user_name': user_name,
         }
     )
+
+@router.get('/bot', response_class=HTMLResponse)
+async def bot(request: Request,
+              current_user: dict = Depends(get_current_user),
+                user_name: str = Depends(name_user_auth)):
+    
+    return templates.TemplateResponse(
+        name="bot.html",
+        request=request,
+        context={
+            'user_email': current_user['email'],
+            'user_name': user_name,
+        }
+    )
