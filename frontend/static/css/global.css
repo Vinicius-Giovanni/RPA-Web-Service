@@ -70,11 +70,11 @@ nav a:hover::after {
     width: 100%;
     min-height: calc(100vh - 80px);
     display: grid;
-    grid-template-columns: 300px minma(0, 1fr);
+    grid-template-columns: 300px minmax(0, 1fr);
     overflow: hidden;
 }
 
-.liquid-sidevar-state {
+.liquid-sidebar-state {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -193,7 +193,7 @@ nav a:hover::after {
     display: none;
 }
 
-#panel-status-olpn:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-status-olpn"],
+#panel-automation-1:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-1"],
 #panel-automation-2:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-2"],
 #panel-automation-3:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-3"],
 #panel-automation-4:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-4"],
@@ -213,8 +213,8 @@ nav a:hover::after {
     box-shadow: inset 0 0 26px rgba(255, 255, 255, 0.22), 0 16px 28px rgba(0, 0, 0, 0.2);
 }
 
-#panel-status-olpn:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-status-olpn"]::before,
-#panel-status-olpn:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-status-olpn"]::after,
+#panel-automation-1:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-1"]::before,
+#panel-automation-1:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-1"]::after,
 #panel-automation-2:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-2"]::before,
 #panel-automation-2:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-2"]::after,
 #panel-automation-3:checked ~ .liquid-sidebar .liquid-sidebar__item[for="panel-automation-3"]::before,
@@ -247,7 +247,7 @@ nav a:hover::after {
     transform: translateY(-50%) scale(1);
 }
 
-#panel-status-olpn:checked ~ .liquid-sidebar-frame .liquid-sidebar-panel--status,
+#panel-automation-1:checked ~ .liquid-sidebar-frame .liquid-sidebar-panel--status,
 #panel-automation-2:checked ~ .liquid-sidebar-frame .liquid-sidebar-panel--automation-2,
 #panel-automation-3:checked ~ .liquid-sidebar-frame .liquid-sidebar-panel--automation-3,
 #panel-automation-4:checked ~ .liquid-sidebar-frame .liquid-sidebar-panel--automation-4,
