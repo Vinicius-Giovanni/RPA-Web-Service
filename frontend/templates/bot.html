@@ -9,6 +9,8 @@
 </head>
 <body>
     {% include 'components/navbar.html' %}
+    {% with sidebar_variant='bot' %}
     {% include 'components/sidebar.html' %}
+    {% endwith %}
 </body>
 </html>

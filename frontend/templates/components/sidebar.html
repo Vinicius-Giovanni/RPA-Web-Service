@@ -1,19 +1,80 @@
-<main class="liquid-sidebar-layout" aria-label="Área de automações">
-    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-automation-1" checked>  
-    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-automation-2">  
-    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-automation-3">  
-    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-automation-4">  
-    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-automation-5">  
-    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-automation-6">  
-    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-automation-7">  
-    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-automation-8">  
-    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-automation-9">  
-    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-automation-10">  
-    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-automation-11">  
-    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-automation-12">  
-    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-automation-13">  
-    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-automation-14">  
-    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-automation-15">  
+{% set sidebar_context = sidebar_variant|default('bot' if request.url.path == '/bot' else 'rpa') %}
+
+{% if sidebar_context == 'bot' %}
+<main class="liquid-sidebar-layout liquid-sidebar-layout--bot" aria-label="Área de bots">
+    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-bot-1" checked>
+    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-bot-2">
+
+    <aside class="liquid-sidebar" aria-label="Menu de bots">
+        <div class="liquid-sidebar__header">
+            <span class="liquid-sidebar__eyebrow">Menu</span>
+            <h2>Bots</h2>
+        </div>
+
+        <nav class="liquid-sidebar__nav" aria-label="Lista de bots">
+            <label class="liquid-sidebar__item" for="panel-bot-1">bot1</label>
+            <label class="liquid-sidebar__item" for="panel-bot-2">bot2</label>
+        </nav>
+    </aside>
+
+    <button class="liquid-sidebar-toggle" type="button" aria-label="Esconder menu lateral" aria-expanded="true">
+        <span class="liquid-sidebar-toggle__icon" aria-hidden="true">‹‹</span>
+    </button>
+
+    <section class="liquid-sidebar-frame" aria-live="polite">
+        {% for bot in range(1, 3) %}
+        <article class="liquid-sidebar-panel liquid-sidebar-panel--bot--{{ bot }}">
+            <div class="liquid-sidebar-panel__header">
+                <span>Bot {{ bot }}</span>
+                <h1>Conversa com bot {{ bot }}</h1>
+                <p>Abra a grid do chat para acompanhar as mensagens e continuar a conversa com o bot selecionado.</p>
+            </div>
+
+            <div class="bot-chat-grid" aria-label="Chat do bot {{ bot }}">
+                <div class="bot-chat-grid__conversation">
+                    <div class="bot-chat-message bot-chat-message--bot">
+                        <strong>bot{{ bot }}</strong>
+                        <p>Olá! Sou o bot {{ bot }}. Como posso te ajudar hoj?</p>
+                    </div>
+                    <div class="bot-chat-message bot-chat-message--user">
+                        <strong>Você</strong>
+                        <p>Quero iniciar uma nova conversa.</p>
+                    </div>
+                    <div class="bot-chat-message bot-chat-message--bot">
+                        <strong>bot {{ bot }}</strong>
+                        <p>Perfeito, envie sua mensagem no campo abaixo para começarmos.</p>
+                    </div>
+                </div>
+
+                <form class="chat-message-grid__composer">
+                    <label for="bot--{{ bot }}-message">Messagem</label>
+                    <textarea id="bot-{{ bot }}-message" name="bot_{{ bot }}_message" rows="4" placeholder="Digite sua mensagem para o bot{{ bot }}"></textarea>
+                    <button type="button">Enviar mensagem</button>
+                </form>
+            </div>
+        </article>
+        {% endfor %}
+    </section>
+</main>
+{% else %}
+<main class="liquid-sidebar-layout liquid-sidebar-layout--rpa" aria-label="Área de automações">
+    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-automation-1" checked>
+    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-automation-2">
+    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-automation-3">
+    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-automation-4">
+    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-automation-5">
+    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-automation-6">
+    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-automation-7">
+    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-automation-8">
+    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-automation-9">
+    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-automation-10">
+    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-automation-11">
+    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-automation-12">
+    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-automation-13">
+    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-automation-14">
+    <input class="liquid-sidebar-state" type="radio" name="liquid-sidebar-panel" id="panel-automation-15">
+</main>
+
 
     <aside class="liquid-sidebar" aria-label="Menu de automações">
         <div class="liquid-sidebar__header">
@@ -39,6 +100,10 @@
             <label class="liquid-sidebar__item" for="panel-automation-15">Automação 15</label>
         </nav>
     </aside>
+
+    <button class="liquid-sidebar-toggle" type="button" aria-label="Esconder mnu lateral" aria-expanded="true">
+        <span class="liquid-sidebar-toggle__icon" aria-hidden="true"></span>
+    </button>
 
     <section class="liquid-sidebar-frame" aria-live="polite">
         <article class="liquid-sidebar-panel liquid-sidebar-panel--status">
@@ -88,4 +153,5 @@
         {% endfor %}
     </section>
 </main>
-<script src="frontend/static/js/sidebar.js"></script>
+{% endif %}
+<script src="/static/js/sidebar.js"></script>
