@@ -1,8 +1,12 @@
 from fastapi import Request, HTTPException, status
 import jwt
 from jwt import PyJWKClient
+from utils.log import ExecutionLogger
+from uuid import uuid4
 
 from core.database import SUPABASE_URL,SUPABASE_JWKS_URL
+
+execution_id = str(uuid4())
 
 """
 Cliente responsável por buscar as chaves públicas (JWKS)
@@ -27,6 +31,7 @@ def get_current_user(request: Request):
         - 401 Token expired: quando o token JWT expirou
         - 401 Invalid token: quando o token é inválido ou não pode ser verificado
     """
+
     token = request.cookies.get('access_token')
 
     if not token:
