@@ -1,14 +1,10 @@
+from __future__ import annotations
 
-from core.database import supabase
-from fastapi import Depends
+from api.dependencies.repositories import get_sector_repository
+from application.use_cases.get_sector_metrics import GetSectorMetricsUseCase
+from domain.services.sector_metrics import SectorMetricsService
 
-# extração de quantidade de demanda dos setores
-async def demand_sector() -> dict:
-
-    demandas = supabase.table('sectors').select("*").execute()
-
-    sum_dem = sum(sector["demand"] for sector in demandas.data)
-
-    sum_peo = sum(sector["peoples"] for sector in demandas.data)
-
-    return demandas.data, sum_dem, sum_peo
+async def demand_sector() -> tuple[list[dict[str, object]], int, int]:
+    use_case = GetSectorMetricsUseCase(get_sector_repository(), SectorMetricsService())
+    metrics = await use_case.execute()
+    return metrics.sector, metrics.total_demand, metrics.total_people

@@ -1,22 +1,26 @@
+from __future__ import annotations
+
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
 
-from core.middleware import AdvancedMiddleware
-from app.auth import auth_routes
-from app.routes import routes
+from api.middlewares.observability import ObservabilityMiddleware
+from api.routes import auth, pages
+from core.config.settings import get_settings
+from core.exceptions.handlers import register_exception_hadlers
+from core.logging.config import configure_logging
 
-app = FastAPI()
 
-# Mount the static files directory
-app.mount('/static', StaticFiles(directory='frontend/static'), name='static')
+def create_app() -> FastAPI:
+    settings = get_settings()
+    configure_logging()
 
-# Set up templates
-templates = Jinja2Templates(directory='frontend/templates')
+    app = FastAPI(title=settings.app_name, debug=settings.debug)
+    app.mount("/static", StaticFiles(directory=str(settings.templates.static_dir)), name="static")
+    app.add_middleware(ObservabilityMiddleware)
+    register_exception_hadlers(app)
+    app.include_router(pages.router)
+    app.include_router(auth.router)
 
-# include middleware
-app.add_middleware(AdvancedMiddleware)
+    return app
 
-# include routers
-app.include_router(routes.router)
-app.include_router(auth_routes.router)
+app = create_app()

@@ -1,14 +1,12 @@
+from __future__ import annotations
 
-from core.database import supabase
 from fastapi import Depends
+from api.dependencies.auth import get_current_user
+from api.dependencies.use_cases import get_user_name_use_case
+from application.use_cases.get_user_name import GetUserNameUseCase
 
-from app.auth.auth_middleware import get_current_user
-
-# Extração de nome do usuário logado
-
-async def name_user_auth(current_user: dict = Depends(get_current_user)):
-    user_data = supabase.table('user_table').select('full_name').eq('id', current_user['sub']).single().execute()
-
-    full_name = user_data.data['full_name']
-
-    return full_name
+async def name_user_auth(
+        current_user: dict[str, object] = Depends(get_current_user),
+        use_case = GetUserNameUseCase = Depends(get_user_name_use_case),
+) -> str:
+    return await use_case.execute(str(current_user.get("sub", "")))

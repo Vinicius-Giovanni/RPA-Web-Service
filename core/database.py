@@ -1,20 +1,16 @@
-from supabase import create_client, Client
-from fastapi import Depends
-import os
+from __future__ import annotations
 
-from settings.paths import ENV_PATH
-from dotenv import load_dotenv
+from core.config.settings import get_settings
+from infraestructure.database.supabase_client import get_supabase_client
 
-load_dotenv(dotenv_path=ENV_PATH)
+settings = get_settings()
+SUPABASE_URL = settings.supabase.url
+SUPABASE_KEY = settings.supabase.anon_key
+SUPABASE_JWT = settings.supabase.jwt_secret
+SUPABASE_JWKS_URL = settings.supabase.jwks_url
 
-SUPABASE_URL = os.getenv("API_URL")
-SUPABASE_KEY = os.getenv("API_KEY_ANON_PUBLIC")
-SUPABASE_JWT = os.getenv("JWT_SECRET")
-SUPABASE_JWKS_URL = os.getenv("JWKS_URL")
+class _LazySupabaseClient:
+    def __getattr__(self, name: str):
+        return getattr(get_supabase_client(), name)
 
-if not all([SUPABASE_URL, SUPABASE_KEY, SUPABASE_JWT]):
-    raise EnvironmentError("One or more Supabase environment variables are missing")
-
-# Initialize Supabase client
-supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
-
+supabase = _LazySupabaseClient()
