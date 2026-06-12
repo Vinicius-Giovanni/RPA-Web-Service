@@ -1,0 +1,20 @@
+{
+  "type": "message",
+  "attachments": [
+    {
+      "contentType": "application/vnd.microsoft.card.adaptive",
+      "content": {
+        "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+        "type": "AdaptiveCard",
+        "version": "1.4",
+        "body": [
+          {"type": "TextBlock", "text": "{{ titulo }}", "weight": "Bolder", "size": "Medium"},
+          {"type": "TextBlock", "text": "Coordenador: {{ coordenador }}", "wrap": true},
+          {"type": "TextBlock", "text": "Gestor: {{ gestor }}", "wrap": true},
+          {"type": "TextBlock", "text": "Setor: {{ setor }}", "wrap": true},
+          {"type": "TextBlock", "text": {{ detalhes_lpns | tojson }}, "wrap": true}
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+<!doctype html>
+<html lang="pt-br">
+    <body>
+        <p>Olá, {{ usuario_origem }}.</p>
+        <p>Existem <strong>{{ quantidade_pendencias }}</strong> ILPNs pendentes. Maior atraso: <strong>{{ pior_atraso }}</strong>.</p>
+        {{ tabela_html | safe }}
+    </body>
+</html>

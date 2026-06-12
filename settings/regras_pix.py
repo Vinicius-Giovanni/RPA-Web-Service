@@ -1,0 +1,1 @@
+REGRAS_PIX_BASE: dict[str, dict[str, str]] = {}
