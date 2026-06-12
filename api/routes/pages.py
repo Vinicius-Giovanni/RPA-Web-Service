@@ -8,8 +8,8 @@ from fastapi.templating import Jinja2Templates
 
 from api.dependencies.auth import get_current_user
 from api.dependencies.use_cases import get_sector_metrics_use_case, get_user_name_use_case
-from application.use_cases.get_sector_metrics import GetSectorMetricsUseCase
-from application.use_cases.get_user_name import GetUserNameUseCase
+from app.use_cases.get_sector_metrics import GetSectorMetricsUseCase
+from app.use_cases.get_user_name import GetUserNameUseCase
 from core.config.settings import get_settings
 from domain.services.sector_metrics import SectorMetrics
 

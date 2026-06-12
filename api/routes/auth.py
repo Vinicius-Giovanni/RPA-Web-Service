@@ -6,9 +6,9 @@ from fastapi.templating import Jinja2Templates
 from pydantic import ValidationError
 
 from api.dependencies.use_cases import get_authenticate_user_use_case, get_register_user_use_case
-from application.dto.auth import LoginDTO, RegisterUserDTO
-from application.use_cases.authenticate_user import AuthenticateUserUseCase
-from application.use_cases.register_user import RegisterUserUseCase
+from app.dto.auth import LoginDTO, RegisterUserDTO
+from app.use_cases.authenticate_user import AuthenticateUserUseCase
+from app.use_cases.register_user import RegisterUserUseCase
 from core.config.settings import get_settings
 
 router = APIRouter(tags=['auth'])

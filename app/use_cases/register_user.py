@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from application.dto.auth import RegisterUserDTO
+from app.dto.auth import RegisterUserDTO
 from domain.repositories.user_repository import UserRepository
 
 class RegisterUserUseCase:

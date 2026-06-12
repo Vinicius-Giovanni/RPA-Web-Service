@@ -3,9 +3,9 @@ import asyncio
 import pandas as pd
 from uuid import uuid4
 
-from backend.controle_de_estoque.repositories.excel_repository import DataFrameRepository
-from backend.controle_de_estoque.service.email_ilpn import EmailService
-from backend.controle_de_estoque.service.teams_service import TeamsService
+from modules.controle_de_estoque.repositories.excel_repository import DataFrameRepository
+from modules.controle_de_estoque.service.email_ilpn import EmailService
+from modules.controle_de_estoque.service.teams_service import TeamsService
 from settings.paths import PATH_PRONTO_ENVIO
 from utils.dataframe_utils import limpar_nan
 from utils.log import ExecutionLogger

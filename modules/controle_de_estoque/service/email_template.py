@@ -1,5 +1,5 @@
 from utils.dataframe_utils import limpar_nan
-from backend.controle_de_estoque.templates.templates import estilo_tabela , template_atraso, template_linhas_html, template_return, template_body_email
+from modules.controle_de_estoque.templates.templates import estilo_tabela , template_atraso, template_linhas_html, template_return, template_body_email
 
 
 
