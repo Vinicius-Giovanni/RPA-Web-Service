@@ -55,7 +55,13 @@ async def get_current_user(request: Request) -> dict[str, object]:
     Returns:
         dict[str, object]:
             Payload decodificado do JWT contendo os claims do usuário.
-            
+
+    Raises:
+        HTTPException:
+         - 401 Unauthorized caso o usuário não esteja autenticado.
+         - 401 Unauthorized caso o token esteja expirado.
+         - 401 Unauthorized caso o token seja inválido.
+
     """
     settings = get_settings()
     token = request.cookies.get(settings.security.access_token_cookie)
@@ -77,4 +83,22 @@ async def get_current_user(request: Request) -> dict[str, object]:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token") from exc
     
 async def get_authenticated_user(payload: dict[str, object] = Depends(get_current_user)) -> AuthenticatedUser:
+    """
+    Converte o payload JWT em uma entidade de domínio.
+
+    Esta dependência atua como uma camada de adaptação entre a
+    autenticação baseada em JWT e as regras de negócio da aplicação.
+
+    Os dados relevantes do payload são extraídos e transformados
+    em uma instância da entidade AuthenticatedUser.
+
+    Args:
+        payload:
+            Claims do JWT previamente validados pela dependência
+            get_current_user.
+
+    Returns:
+    AuthenticatedUser:
+        Entidade representando o usuário autenticado.
+    """
     return AuthenticatedUser(id=str(payload.get('sub', "")), email=str(payload.get('email', "")))
