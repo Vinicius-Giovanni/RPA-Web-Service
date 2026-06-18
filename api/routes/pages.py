@@ -29,7 +29,7 @@ da camada de aplicação e disponibilidade aos templates Jinja2.
 """
 
 router = APIRouter(tags=['pages'])
-templates = Jinja2Templates(directory=str(get_settings()templates.frontend_dir))
+templates = Jinja2Templates(directory=str(get_settings().templates.frontend_dir))
 
 @dataclass(frozen=True, slots=True)
 class SectorPage:
@@ -48,7 +48,7 @@ class SectorPage:
 
 SECTOR_PAGES: tuple[SectorPage, ...] = (
     SectorPage("/abastecimento", "setor_abastecimento.html"),
-    SectorPage("/online" "setor_online.html"),
+    SectorPage("/online", "setor_online.html"),
     SectorPage("/pesados", "setor_pesados.html"),
     SectorPage("/par", "setor_par.html"),
     SectorPage("/1200-outbound", "1200_outbound.html"),
@@ -207,7 +207,7 @@ for sector_page in SECTOR_PAGES:
     async def endpoint(
             request: Request,
             current_user: dict[str, object] = Depends(get_current_user),
-            user_name_use_case: GetSectorMetricsUseCase = Depends(get_user_name_use_case),
+            user_name_use_case: GetUserNameUseCase = Depends(get_user_name_use_case),
             sector_metrics_use_case: GetSectorMetricsUseCase = Depends(get_sector_metrics_use_case),
             template_name: str = sector_page.templates,
     ) -> HTMLResponse:
@@ -227,11 +227,21 @@ async def rpa(
     current_user: dict[str, object] = Depends(get_current_user),
     user_name_use_case: GetUserNameUseCase = Depends(get_user_name_use_case),
 ) -> HTMLResponse:
+    """
+    Renderiza a página de automações RPA.
+
+    Disponibiliza informações do usuário autenticado
+    necessárias para personalização da interface.
+
+    Returns:
+        HTMLResponse:
+            Página de automações renderizada.
+    """
     user_name = await user_name_use_case.execute(str(current_user.get("sub", "")))
     return templates.TemplateResponse(
         request=request,
         name='rpa.html',
-        context={'user_emau': current_user.get("email", ""), "user_name": user_name},
+        context={'user_email': current_user.get("email", ""), "user_name": user_name},
     )
 
 @router.get("/bot", response_class=HTMLResponse)
@@ -240,6 +250,16 @@ async def bot(
     current_user: dict[str, object] = Depends(get_current_user),
     user_name_use_case: GetUserNameUseCase = Depends(get_user_name_use_case),
 ) -> HTMLResponse:
+    """
+    Renderiza a página de bots da plataforma.
+
+    Disponibiliza informações do usuário autenticado
+    para exibição na interface.
+
+    Returns:
+        HTMLResponse:
+            Página de bots renderizada.
+    """
     user_name = await user_name_use_case.execute(str(current_user.get("sub", "")))
     return templates.TemplateResponse(
         request=request,
