@@ -1,7 +1,19 @@
 from __future__ import annotations
 
 from core.config.settings import get_settings
-from infraestructure.database.supabase_client import get_supabase_client
+from infrastructure.database.supabase_client import get_supabase_client
+
+"""
+Centraliza o acesso à configuração e ao cliente do Supabase.
+
+Este módulo expõe:
+- Configurações relacionadas ao Supabase.
+- Uma instância de cliente com inicialização de banco de dados.
+
+A utilização de um proxy lazy evita a crição imediata do
+cliente durante a importação dos módulos, reduzind acoplamento
+e possíveis problemas de inicialização da aplicação.
+"""
 
 settings = get_settings()
 SUPABASE_URL = settings.supabase.url

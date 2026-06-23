@@ -53,11 +53,34 @@ def get_correlation_id() -> str:
     return value
 
 def set_correlation_id(value: str | None=None) -> str:
+    """
+    Define o CorrelationID do contexto atual.
+
+    Caso nenhum valor seja fornecido, um novo UUID é gerado.
+
+    Args:
+        value:
+            Identificador a ser utilizado.
+
+    Returns:
+        str:
+            Correlation ID armazenado no contexto.
+    """
     value = value or str(uuid4())
     correlation_id_var.set(value)
     return value
 
 def get_execution_id() -> str:
+    """
+    Retorna o Execution ID atual.
+
+    Caso não exista um identificador definido pra o contexto,
+    um novo UUID é criado automaticamente.
+
+    Returns:
+        str:
+            Execution ID associado à execução atual.
+    """
     value = execution_id_var.get()
     if value:
         return value
@@ -66,6 +89,19 @@ def get_execution_id() -> str:
     return value
 
 def set_execution_id(value: str | None=None) -> str:
+    """
+    Define o execution id do contexto atual.
+
+    Caso nenhum valor seja informado, um novo UUID será gerado.
+
+    Args:
+        value:
+            Identificador da execução.
+
+    Returns:
+        str:
+            Execution ID armazenado no contexto.
+    """
     value = value or str(uuid4())
     execution_id_var.set(value)
     return value
