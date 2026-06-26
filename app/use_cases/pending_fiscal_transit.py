@@ -9,14 +9,14 @@ logger = ExecutionLogger(
         execution_id=execution_id
 )
 
+def execute_pending_fiscal_transit():
+    service = TransitFiscal(
+        origem_txt=...,
+        destino_txt=...,
+        destino_csv=...,
+        historico_csv=...
+    )
 
-service = TransitFiscal(
-    origem_txt=...,
-    destino_txt=...,
-    destino_csv=...,
-    historico_csv=...
-)
+    result = service.execute()
 
-result = service.execute()
-
-logger.info(result)
+    logger.info(result)
