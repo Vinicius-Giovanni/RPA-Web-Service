@@ -15,7 +15,7 @@ class DataframeManager:
     async def load_csv(self, caminho: str | Path, sep: str, enconding: str) -> pd.DataFrame:
 
         if not Path(caminho).exists():
-            logger.warning(f"O caminho fornecido para ler o dataframe não existe: {caminho}")
+            await logger.warning(f"O caminho fornecido para ler o dataframe não existe: {caminho}")
 
         return pd.read_csv(
             caminho,
@@ -36,7 +36,7 @@ class DataframeManager:
                 sep=sep,
                 encoding=encoding
             )
-            logger.info(f"Arquivo CSV criado com sucesso no caminho: {caminho}")
+            await logger.info(f"Arquivo CSV criado com sucesso no caminho: {caminho}")
         except Exception as e:
-            logger.error(f"Erro ao tentar gerar arquivo CSV no caminho: {caminho}\n erro: {e}")
+            await logger.error(f"Erro ao tentar gerar arquivo CSV no caminho: {caminho}\n erro: {e}")
 

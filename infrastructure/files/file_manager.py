@@ -16,21 +16,21 @@ class FileManager:
     @staticmethod
     async def _exists(caminho: str) -> bool:
         if Path(caminho).exists():
-            logger.info(f"Caminho validado: {caminho}")
+            await logger.info(f"Caminho validado: {caminho}")
         else:
-            logger.info(f"Caminho nãõ foi encontrado: {caminho}")
+            await logger.info(f"Caminho nãõ foi encontrado: {caminho}")
 
     
     @staticmethod
     async def _copy(origem: str, destino: str):
         if shutil.copy2(origem, destino):
-            logger.info(f"Arquivo copiado da origem: {origem} e colado para o destino: {destino}")
+            await logger.info(f"Arquivo copiado da origem: {origem} e colado para o destino: {destino}")
         else:
-            logger.info(f"Arquivo não encontrado na origem: {origem}")
+            await logger.info(f"Arquivo não encontrado na origem: {origem}")
 
     @staticmethod
     async def _create_folder(caminho: str):
         if Path(caminho).mkdir(parents=True, exist_ok=True):
-            logger.info(f"Pasta criada no caminho: {caminho}")
+            await logger.info(f"Pasta criada no caminho: {caminho}")
         else:
-            logger.info(f"Pasta não foi criada no caminho: {caminho}")
+            await logger.info(f"Pasta não foi criada no caminho: {caminho}")

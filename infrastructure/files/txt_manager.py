@@ -31,7 +31,7 @@ class TxtManager:
             lines = infile.readlines()
         
         if not lines:
-            logger.error("Arquivo TXT vazio")
+            await logger.error("Arquivo TXT vazio")
 
         header = (
             lines[0].strip().split(self.DELIMITADOR)

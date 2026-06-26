@@ -15,6 +15,3 @@ wheels/
 
 # env
 .env
-
-# files
-settings/paths.py
