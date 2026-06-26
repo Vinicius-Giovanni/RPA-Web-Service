@@ -9,7 +9,7 @@ from uuid import uuid4
 execution_id = str(uuid4())
 
 logger = ExecutionLogger(
-        automation_name="3.11 - Status Wave + oLPN",
+        automation_name="dataframe_utils",
         execution_id=execution_id
 )
 
