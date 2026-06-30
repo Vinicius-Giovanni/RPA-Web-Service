@@ -5,7 +5,7 @@ from infrastructure.files.file_manager import FileManager
 from infrastructure.files.txt_manager import TxtManager
 from infrastructure.dataframes.dataframe_manager import DataframeManager
 from domain.services.historic_trans_fiscal import HistoricTransitFiscal
-from utils.log import ExecutionLogger
+from core.logging.log import ExecutionLogger
 from uuid import uuid4
 
 execution_id = str(uuid4())

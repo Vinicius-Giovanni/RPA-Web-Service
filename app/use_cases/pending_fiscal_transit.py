@@ -4,7 +4,7 @@ from uuid import uuid4
 import argparse
 
 from app.services.transit_fiscal import TransitFiscal
-from utils.log import ExecutionLogger
+from core.logging.log import ExecutionLogger
 from settings.paths import PENDING_FISCAL_HISTORICO_CSV, PENDING_FISCAL_DESTINO_CSV, PENDING_FISCAL_DESTINO_TXT, PENDING_FISCAL_ORIGEM_TXT
 
 execution_id = str(uuid4())
@@ -62,5 +62,5 @@ async def _main_test() -> None:
 
     print(result)
 
-if __name__ == "__main__":
-    asyncio.run(_main_test())
+# if __name__ == "__main__":
+#     asyncio.run(_main_test())

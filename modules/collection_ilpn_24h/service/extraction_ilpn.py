@@ -8,7 +8,7 @@ from repositories.excel_repository import DataFrameRepository
 from service.pix_rules_ilpn import PixRuleService
 from utils.date_utils import set_label_delay
 from models.model_cobranca_ilpn import COLUNAS_PENDENTES
-from utils.log import ExecutionLogger
+from core.logging.log import ExecutionLogger
 
 """
 Serviço responsável pela preparação dos dados utilizados no processo

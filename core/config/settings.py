@@ -6,7 +6,7 @@ from pathlib import Path
 import os
 
 from dotenv import load_dotenv
-from settings.paths import ENV_PATH
+from settings.paths import ENV_PATH, BASE_DIR
 
 """
 Centraliza as configurações da aplicação.
@@ -26,8 +26,6 @@ load_dotenv(dotenv_path=ENV_PATH)
 
 DEPARTMENT_EMAIL = os.getenv('DEPARTMENT_EMAIL')
 MANAGER_EMAIL = os.getenv('MANAGER_EMAIL')
-
-BASE_DIR = Path(__file__).resolve().parent
 
 @dataclass(frozen=True, slots=True)
 class SupabaseSettings:
@@ -116,7 +114,9 @@ class LoggingSettings:
     """
     log_dir: Path = BASE_DIR / "logs"
     execution_dir: Path = BASE_DIR / "logs" / "executions"
-    error_dir: Path = BASE_DIR / 'logs' / 'audit'
+    error_dir: Path = BASE_DIR / 'logs' / 'errors'
+    audit_dir: Path = BASE_DIR / 'logs' / 'audit'
+
     max_bytes: int = 10 * 1024 * 1024
     backup_count: int = 10
     level: str = "INFO"
@@ -141,7 +141,7 @@ class TemplateSettings:
             Diretório dos templates utilizados em integrações
             com Microsoft Teams.
     """
-    frontend_dir: Path = BASE_DIR / "frontend" / "templates"
+    frontend_dir: Path = BASE_DIR / "frontend" / "templates" / "application"
     static_dir: Path = BASE_DIR / "frontend" / "static"
     email_dir: Path = BASE_DIR / "templates" / "emails"
     teams_dir: Path = BASE_DIR / "templates" / "teams"
@@ -219,7 +219,7 @@ class AppSettings:
             Configurações da automação de inventário.
     """
     app_name: str = "Web RPA Service - WaveHub"
-    Environment: str = "local"
+    environment: str = "local"
     debug: bool = False
     base_dir: Path = BASE_DIR
     supabase: SupabaseSettings = field(default_factory=SupabaseSettings)
@@ -313,7 +313,7 @@ def get_settings() -> AppSettings:
         inventory=InventoryAutomationSettings(
             test_mode=_bool_env("MODO_TESTE"),
             department_email=os.getenv("DEPARTMENT_EMAIL"),
-            manager_emails=_tuple_env("EMAILS_GESTORES"),
+            manager_emails=_tuple_env("EMAILS_GESTORES", ()),
             teams_webhook = os.getenv("WEBHOOK_TEAMS"),
         ),
     )

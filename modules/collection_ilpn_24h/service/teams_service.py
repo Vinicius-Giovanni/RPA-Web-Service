@@ -2,7 +2,7 @@ import requests
 
 from settings.settings import WEBHOOK_TEAMS
 from templates.teams_template import montar_card_teams
-from utils.log import ExecutionLogger
+from core.logging.log import ExecutionLogger
 from uuid import uuid4
 
 """

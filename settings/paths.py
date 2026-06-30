@@ -2,7 +2,7 @@ from __future__ import annotations
 from pathlib import Path
 from datetime import datetime
 
-BASE_DIR = Path(__file__).resolve().parents[1]
+BASE_DIR = Path(r'C:/Users/2960006959/Desktop/project/RPA-Web-Service')
 ENV_PATH = BASE_DIR / ".env"
 DATA_DIR = BASE_DIR / "data"
 LOG_DIR = BASE_DIR / "logs"

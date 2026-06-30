@@ -9,7 +9,7 @@ from repositories.colaborador_repository import ColaboradorRepository
 from repositories.excel_repository import DataFrameRepository
 from repositories.historico_repository import HistoricoRepository
 from service.rh_service import RHService
-from utils.log import ExecutionLogger
+from core.logging.log import ExecutionLogger
 
 execution_id = str(uuid4())
 

@@ -2,7 +2,7 @@ from repositories.colaborador_repository import ColaboradorRepository
 from utils.dataframe_utils import normalizar_email 
 from models.model_cobranca_ilpn import Colaborador
 
-from utils.log import ExecutionLogger
+from core.logging.log import ExecutionLogger
 from uuid import uuid4
 
 """

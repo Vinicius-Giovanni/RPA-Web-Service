@@ -91,7 +91,7 @@ async def signup(
     except ValidationError as exc:
         raise HTTPException(status_code=400, detail="Dados de cadastro inválido") from exc
     except Exception as exc:
-        raise HTMLResponse(status_code=400, detail=str(exc)) from exc
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
     
 @router.post("/login")
 async def login(

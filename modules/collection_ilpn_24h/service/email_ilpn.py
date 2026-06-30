@@ -3,7 +3,7 @@ from settings.settings import EMAIL_DEPARTAMENTO, EMAILS_GESTORES, MODO
 from templates.email_template import template_email
 from utils.email_utils import valid_emails
 
-from utils.log import ExecutionLogger
+from core.logging.log import ExecutionLogger
 from uuid import uuid4
 
 """

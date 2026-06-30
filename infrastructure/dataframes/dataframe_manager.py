@@ -1,6 +1,6 @@
 import pandas as pd
 from pathlib import Path
-from utils.log import ExecutionLogger
+from core.logging.log import ExecutionLogger
 from uuid import uuid4
 
 execution_id = str(uuid4())

@@ -1,5 +1,5 @@
 from utils.chromium_settings import start_browser
-from utils.log import ExecutionLogger
+from core.logging.log import ExecutionLogger
 from uuid import uuid4
 
 execution_id = str(uuid4())

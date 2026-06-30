@@ -31,7 +31,7 @@ A configuração é aplicada durante a inicialização da aplicação
 e permanece ativa durante todo o ciclo de vida do processo.
 """
 
-class CorrelationJsonFormatter(jsonlogger.jsonFormatter):
+class CorrelationJsonFormatter(jsonlogger.JsonFormatter):
     """
     Formatter responsável por enriquecer logs estruturados.
 
@@ -124,7 +124,7 @@ def configure_logging() -> None:
         {
             "version": 1,
             "disable_existing_loggers": False,
-            "formatter": {
+            "formatters": {
                 "json": {
                     "()": formatter_path,
                     "fmt": "%(asctime)s %(levelname)s %(name)s %(message)s %(correlation_id)s %(execution_id)s"

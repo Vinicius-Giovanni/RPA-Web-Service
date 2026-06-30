@@ -8,7 +8,7 @@ from modules.controle_de_estoque.service.email_ilpn import EmailService
 from modules.controle_de_estoque.service.teams_service import TeamsService
 from settings.paths import PATH_PRONTO_ENVIO
 from utils.dataframe_utils import limpar_nan
-from utils.log import ExecutionLogger
+from core.logging.log import ExecutionLogger
 
 
 execution_id = str(uuid4())

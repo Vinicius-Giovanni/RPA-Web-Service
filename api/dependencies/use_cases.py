@@ -3,7 +3,7 @@ from __future__ import annotations
 from fastapi import Depends
 
 from api.dependencies.repositories import get_sector_repository, get_user_repository
-from app.use_cases.authenticate_user import AuthenticatedUserCase
+from app.use_cases.authenticate_user import AuthenticateUserUseCase
 from app.use_cases.get_sector_metrics import GetSectorMetricsUseCase
 from app.use_cases.get_user_name import GetUserNameUseCase
 from app.use_cases.register_user import RegisterUserUseCase
@@ -28,7 +28,7 @@ def get_register_user_use_case(repository: UserRepository = Depends(get_user_rep
     """
     return RegisterUserUseCase(repository)
 
-def get_authenticate_user_use_case(repository: UserRepository = Depends(get_user_repository)) -> AuthenticatedUserCase:
+def get_authenticate_user_use_case(repository: UserRepository = Depends(get_user_repository)) -> AuthenticateUserUseCase:
     """
     Cria e fornece o caso de uso responsável pela autenticação
     de usuários.
@@ -42,10 +42,10 @@ def get_authenticate_user_use_case(repository: UserRepository = Depends(get_user
             Repositório responsável pelo acesso aos dados de usuários.
 
     Returns:
-        AuthenticatedUserCase:
+        AuthenticateUserUseCase:
             Caso de uso configurado para autenticação.
     """
-    return AuthenticatedUserCase(repository)
+    return AuthenticateUserUseCase(repository)
 
 def get_user_name_use_case(repository: UserRepository = Depends(get_user_repository)) -> GetUserNameUseCase:
     """

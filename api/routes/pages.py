@@ -266,3 +266,11 @@ async def bot(
         name='bot.html',
         context={'user_emau': current_user.get("email", ""), "user_name": user_name},
     )
+
+@router.get('/login', response_class=HTMLResponse)
+async def login_page(request: Request) -> HTMLResponse:
+    return templates.TemplateResponse(
+        request=request,
+        name='login.html',
+        context={}
+    )
