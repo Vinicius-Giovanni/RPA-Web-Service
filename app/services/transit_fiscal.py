@@ -37,14 +37,14 @@ class TransitFiscal:
 
     async def execute(self):
 
-        self.file_manager._exists(self.origem_txt)
+        await self.file_manager._exists(self.origem_txt)
 
-        self.file_manager._copy(
+        await self.file_manager._copy(
             self.origem_txt,
             self.destino_txt
         )
 
-        self.processor.process(
+        await self.processor.process(
             self.destino_txt,
             self.destino_csv
         )
@@ -60,7 +60,7 @@ class TransitFiscal:
         )
 
         df_historic = (
-            self.repository.load_csv(self.historico_csv)
+            await self.repository.load_csv(self.historico_csv)
         )
 
         if not df_historic.empty:
@@ -84,16 +84,16 @@ class TransitFiscal:
             HistoricTransitFiscal.calcular_atrasos(df_historic)
         )
 
-        self.repository.save_csv(
+        await self.repository.save_csv(
             self.historico_csv,
             df_historic
         )
 
         return {
-            "novos": qtd_new,
-            "resolvidos": qt_resolved,
-            "pendentes": (
+            "novos": int(qtd_new),
+            "resolvidos": int(qt_resolved),
+            "pendentes": int((
                 df_historic['Status'] == "Pendente"
-            ).sum(),
-            "total": len(df_historic)
+            ).sum()),
+            "total": int(len(df_historic))
         }

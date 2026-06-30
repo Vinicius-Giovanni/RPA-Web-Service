@@ -6,14 +6,14 @@ from uuid import uuid4
 execution_id = str(uuid4())
 
 logger = ExecutionLogger(
-        automation_name="3.11 - Status Wave + oLPN",
+        automation_name="historic_trans_fiscal",
         execution_id=execution_id
 )
 
 class HistoricTransitFiscal:
 
     @staticmethod
-    async def create_key(df_for_transit_fiscal):
+    def create_key(df_for_transit_fiscal):
 
         df_for_transit_fiscal["CHAVE_UNICA"] =(
             df_for_transit_fiscal["FILIAL_EMI"].fillna("").str.strip()
@@ -26,7 +26,7 @@ class HistoricTransitFiscal:
         return df_for_transit_fiscal
     
     @staticmethod
-    async def update(
+    def update(
         df_today: pd.DataFrame,
         df_historic: pd.DataFrame,
         date_execution: str
@@ -65,7 +65,7 @@ class HistoricTransitFiscal:
             )
         )
 
-        qtd_resolved = resolved.sum()
+        qtd_resolved = int(resolved.sum())
 
         df_historic.loc[
             resolved,
@@ -81,7 +81,7 @@ class HistoricTransitFiscal:
             ~df_today["CHAVE_UNICA"].isin(keys_historic)
         ].copy()
 
-        qtd_new = len(df_today)
+        qtd_new = len(df_new)
 
         if not df_new.empty:
 
@@ -112,12 +112,17 @@ class HistoricTransitFiscal:
             errors='coerce'
         )
 
+        df['Dias em Atraso'] = pd.to_numeric(
+            df.get('Dias em Atraso'),
+            errors='coerce'
+        )
+
         pending = (
-            df['status'] == 'Pendente'
+            df['Status'] == 'Pendente'
         )
 
         resolved = (
-            df['status'] == 'Resolvido'
+            df['Status'] == 'Resolvido'
         )
 
         df.loc[
@@ -141,13 +146,13 @@ class HistoricTransitFiscal:
             resolved,
             "Dias em Atraso"
         ] = (
-            date_resolved
-            - df['DT_EMI_DT']
+            date_resolved.loc[resolved]
+            - df.loc[resolved, 'DT_EMI_DT']
         ).dt.days
 
         df.drop(
             columns=['DT_EMI_DT'],
-            inplce=True
+            inplace=True
         )
 
         return df

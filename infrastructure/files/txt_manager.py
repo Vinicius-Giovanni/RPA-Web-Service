@@ -1,5 +1,6 @@
 import csv
 from datetime import datetime
+from pathlib import Path
 from settings.settings import get_type_filial, DELIMITADOR_TXT_MANAGER
 from utils.log import ExecutionLogger
 from uuid import uuid4
@@ -19,19 +20,20 @@ class TxtManager:
             self,
             file_txt: str,
             file_csv: str,
-            enconding: str = "utf-8"
+            encoding: str = "utf-8"
     ) -> None:
         
         with open(
             file_txt,
             "r",
-            encoding=enconding
+            encoding=encoding
         ) as infile:
             
             lines = infile.readlines()
         
         if not lines:
             await logger.error("Arquivo TXT vazio")
+            raise ValueError("Arquivo TXT vazio")
 
         header = (
             lines[0].strip().split(self.DELIMITADOR)
@@ -45,11 +47,13 @@ class TxtManager:
 
         header.append("TIPO_FLUXO")
 
+        Path(file_csv).parent.mkdir(parents=True, exist_ok=True)
+
         with open(
             file_csv,
             'w',
             newline="",
-            enconding=enconding
+            encoding=encoding
         ) as outfile:
             
             writer = csv.writer(
@@ -84,14 +88,14 @@ class TxtManager:
                             "%d.%m.%Y"
                         ). strftime("%Y-%m-%d")
                     )
-                except:
+                except ValueError:
                     data[id_date] = None
                 
-                type_emi = get_type_filial(
+                type_emi = await get_type_filial(
                     data[id_filial_emi]
                 )
 
-                type_dst = get_type_filial(
+                type_dst = await get_type_filial(
                     data[id_filial_dst]
                 )
 

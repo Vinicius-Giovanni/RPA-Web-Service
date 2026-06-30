@@ -19,6 +19,8 @@ class ExecutionLogger:
 
         self.log_path = LOG_EXECUTIONS / automation_name
 
+        self.log_path.mkdir(parents=True, exist_ok=True)
+
         self.file = (
             self.log_path / f"{execution_id}.jsonl"
         )
@@ -47,7 +49,7 @@ class ExecutionLogger:
         ) as f:
             
             await f.write(
-                json.dumps(payload) + "\n"
+                json.dumps(payload, ensure_ascii=False) + "\n"
             )
     
     async def info(self, message:str):

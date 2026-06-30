@@ -14,23 +14,32 @@ logger = ExecutionLogger(
 class FileManager:
     
     @staticmethod
-    async def _exists(caminho: str) -> bool:
-        if Path(caminho).exists():
-            await logger.info(f"Caminho validado: {caminho}")
+    async def _exists(caminho: str | Path) -> bool:
+        if caminho is str:
+            path = Path(caminho)
         else:
-            await logger.info(f"Caminho nãõ foi encontrado: {caminho}")
-
+            path = caminho
+        
+        if path.exists():
+            await logger.info(f"Caminho validado: {path}")
+            return True
+        
+        await logger.error( f'Caminho não encontrado: {path}')
+        raise FileNotFoundError(f'Caminho não encontrado: {path}')
     
     @staticmethod
-    async def _copy(origem: str, destino: str):
-        if shutil.copy2(origem, destino):
-            await logger.info(f"Arquivo copiado da origem: {origem} e colado para o destino: {destino}")
-        else:
-            await logger.info(f"Arquivo não encontrado na origem: {origem}")
+    async def _copy(origem: str | Path, destino: str | Path):
+        origem_path = Path(origem)
+        destino_path = Path(destino)
+        destino_path.parent.mkdir(parents=True,exist_ok=True)
+
+        await FileManager._exists(origem_path)
+        shutil.copy2(origem_path, destino_path)
+        await logger.info(f'Arquivo copiado do origem: {origem_path} e colado para o destino: {destino_path}')
 
     @staticmethod
-    async def _create_folder(caminho: str):
-        if Path(caminho).mkdir(parents=True, exist_ok=True):
-            await logger.info(f"Pasta criada no caminho: {caminho}")
-        else:
-            await logger.info(f"Pasta não foi criada no caminho: {caminho}")
+    async def _create_folder(caminho: str | Path):
+        path = Path(caminho)
+        path.mkdir(parents=True, exist_ok=True)
+        await logger.info(f"Pasta criada no caminho: {path}")
+
