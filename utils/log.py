@@ -11,11 +11,13 @@ class ExecutionLogger:
     def __init__(
             self,
             automation_name:str,
-            execution_id:str
+            execution_id:str,
+            log_type: str = 'execution',
     ):
         
         self.automation_name = automation_name
         self.execution_id = execution_id
+        self.log_path = self._normalize_log_type(log_type)
 
         self.log_path = LOG_EXECUTIONS / automation_name
 
@@ -25,11 +27,21 @@ class ExecutionLogger:
             self.log_path / f"{execution_id}.jsonl"
         )
     
+    @staticmethod
+    def _normalize_log_type(log_type: str) -> str:
+        return log_type.strip().lower().replace(" ", "_")
+
+    def _file_for(self, log_type: str) -> str:
+        normalize_log_type = self._normalize_log_type(log_type)
+        return self.log_path / f'{self.execution_id}_{normalize_log_type}.jsonl'
+    
     async def write(
             self,
             level:str,
-            message:str
+            message:str,
+            log_type: str | None = None,
     ):
+        file_path = self._file_for(log_type or self.log_type)
         
         payload = {
             "timestamp":
@@ -38,12 +50,15 @@ class ExecutionLogger:
             "level":
                 level,
 
+            "type":
+                self._normalize_log_type(log_type or self.log_type),
+
             "message":
                 message
         }
 
         async with aiofiles.open(
-            self.file,
+            file_path,
             "a",
             encoding="utf-8"
         ) as f:
@@ -52,28 +67,39 @@ class ExecutionLogger:
                 json.dumps(payload, ensure_ascii=False) + "\n"
             )
     
-    async def info(self, message:str):
+    async def info(self, message: str):
         await self.write(
             "INFO",
-            message
+            message,
+            log_type='execution',
         )
     
-    async def warning(self, message:str):
+    async def warning(self, message: str):
         await self.write(
             "WARNING",
-            message
+            message,
+            log_type='execution',
         )
 
-    async def error(self, message:str):
+    async def error(self, message: str):
         await self.write(
             "ERROR",
-            message
+            message,
+            log_type='error'
+        )
+
+    async def audit(self, message: str):
+        await self.write(
+            "AUDIT",
+            message,
+            log_type='audit',
         )
     
-    async def sucess(self, message:str):
+    async def sucess(self, message: str):
         await self.write(
             "SUCCESS",
-            message
+            message,
+            log_type='execution',
         )
 
 
