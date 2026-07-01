@@ -2,15 +2,22 @@ from __future__ import annotations
 
 from collections import defaultdict, deque
 from time import monotonic
+from uuid import uuid4
 from typing import Deque
 
 from fastapi import Request, Response
 from starlette.middleware.base import BaseHTTPMiddleware, RequestResponseEndpoint
+from core.logging.log import ExecutionLogger
 
-from core.logging.config import get_logger
 from core.logging.context import set_correlation_id, set_execution_id
 
-logger = get_logger(__name__)
+execution_id = str(uuid4())
+
+logger = ExecutionLogger(
+        automation_name="observability_middleware",
+        execution_id=execution_id
+)
+
 
 """
 Middleware responsável pela camada transversal de observabilidade.
@@ -123,8 +130,7 @@ class ObservabilityMiddleware(BaseHTTPMiddleware):
         
         start_time = monotonic()
 
-        logger.info("request_started",
-                    extra={"path": path, "method": request.method})
+        logger.info("Processando requisição HTTP")
         
         response = await call_next(request)
         process_time = monotonic() - start_time
@@ -133,10 +139,7 @@ class ObservabilityMiddleware(BaseHTTPMiddleware):
         response.headers["X-Correlation-ID"] = correlation_id
         response.headers['X-Execution-ID'] = execution_id
 
-        logger.info(
-            "request_finished",
-            extra={"path": path, "method": request.method, "status_code": response.status_code, "process_time": process_time},
-        )
+        logger.info("Requisição HTTP finalizada")
 
         return response
     
@@ -172,10 +175,7 @@ class ObservabilityMiddleware(BaseHTTPMiddleware):
         
         if len(request_times) >= limit:
             
-            logger.warning(
-                "rate_limit_exceeded",
-                extra={"path": path, "client_ip": client_ip}
-            )
+            logger.warning("Rate limit excedido")
 
             return Response(content="Rate limit exceeded", status_code=429)
         request_times.append(now)

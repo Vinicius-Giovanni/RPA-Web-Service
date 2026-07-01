@@ -2,9 +2,10 @@ from __future__ import annotations
 
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
+from uuid import uuid4
 
-from core.logging.config import get_logger
 from core.logging.context import get_correlation_id
+from core.logging.log import ExecutionLogger
 
 """
 Tratamento global de exceções de aplicação.
@@ -24,7 +25,12 @@ Todas exceções não tratadas são capturadas por um handler
 genérico que retorna uma resposta padronizada ao consumidor.
 """
 
-logger = get_logger(__name__)
+execution_id = str(uuid4())
+
+logger = ExecutionLogger(
+        automation_name="handlers",
+        execution_id=execution_id
+)
 
 class ApplicationError(Exception):
     """
@@ -79,7 +85,7 @@ async def application_error_handler(request: Request, exc: ApplicationError) -> 
             Resposta contendo detalhes do erro e identificador
             de correlação.
     """
-    logger.warning("application_error", extra={"path": request.url.path, "error": exc.message})
+    logger.warning("Erro na aplicação")
     return JSONResponse(
         status_code=exc.status_code,
         content={"detail": exc.message, "correlation_id": get_correlation_id()},
@@ -106,7 +112,7 @@ async def unhandled_error_handler(request: Request, exc: Exception) -> JSONRespo
         JSONResponse:
             Resposta genérica de erro interno.
     """
-    logger.exception("unhandled_error", extra={"path": request.url.path})
+    logger.exception("Erro não tratado na aplicação")
     return JSONResponse(
         status_code=500,
         content={"detail": "Erro interno inesperado.", "correlation_id": get_correlation_id()},
