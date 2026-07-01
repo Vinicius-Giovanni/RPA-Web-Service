@@ -139,7 +139,7 @@ class ObservabilityMiddleware(BaseHTTPMiddleware):
         response.headers["X-Correlation-ID"] = correlation_id
         response.headers['X-Execution-ID'] = execution_id
 
-        logger.info("Requisição HTTP finalizada")
+        await logger.info("Requisição HTTP finalizada")
 
         return response
     
