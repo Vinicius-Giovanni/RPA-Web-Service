@@ -59,7 +59,7 @@ def get_user_name_use_case(repository: UserRepository = Depends(get_user_reposit
         repository:
             Repositório responsável pelo acesso aos daods de usuários.
     """
-    return GetSectorMetricsUseCase(repository)
+    return GetUserNameUseCase(repository)
 
 def get_sector_metrics_use_case(repository: SectorRepository = Depends(get_sector_repository),) -> GetSectorMetricsUseCase:
     """

@@ -130,7 +130,7 @@ class ObservabilityMiddleware(BaseHTTPMiddleware):
         
         start_time = monotonic()
 
-        logger.info("Processando requisição HTTP")
+        await logger.info("Processando requisição HTTP")
         
         response = await call_next(request)
         process_time = monotonic() - start_time

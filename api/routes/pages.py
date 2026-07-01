@@ -47,14 +47,14 @@ class SectorPage:
     templates: str
 
 SECTOR_PAGES: tuple[SectorPage, ...] = (
-    SectorPage("/abastecimento", "setor_abastecimento.html"),
-    SectorPage("/online", "setor_online.html"),
-    SectorPage("/pesados", "setor_pesados.html"),
-    SectorPage("/par", "setor_par.html"),
-    SectorPage("/1200-outbound", "1200_outbound.html"),
-    SectorPage("/1200-inbound", "1200_inbound.html"),
-    SectorPage("/recebimento", "setor_recebimento.html"),
-    SectorPage("/retorno", "setor_retorno.html"),
+    SectorPage("/abastecimento", "application/setor_abastecimento.html"),
+    SectorPage("/online", "application/setor_online.html"),
+    SectorPage("/pesados", "application/setor_pesados.html"),
+    SectorPage("/par", "application/setor_par.html"),
+    SectorPage("/1200-outbound", "application/1200_outbound.html"),
+    SectorPage("/1200-inbound", "application/1200_inbound.html"),
+    SectorPage("/recebimento", "application/setor_recebimento.html"),
+    SectorPage("/retorno", "application/setor_retorno.html"),
 )
 
 @router.get("/", response_class=HTMLResponse)
@@ -73,7 +73,7 @@ async def index(request: Request) -> HTMLResponse:
         HTMLResponse:
             Página inicial renderizada.
     """
-    return templates.TemplateResponse(request=request, name="index.html", context={})
+    return templates.TemplateResponse(request=request, name="application/index.html", context={})
 
 @router.get('/dashboard', response_class=HTMLResponse)
 async def dashboard(request: Request, current_user: dict[str, object] = Depends(get_current_user)) -> HTMLResponse:
@@ -96,7 +96,7 @@ async def dashboard(request: Request, current_user: dict[str, object] = Depends(
     """
     return templates.TemplateResponse(
         request=request,
-        name="dashboard.html",
+        name="application/dashboard.html",
         context={'user_email': current_user.get("email", "")},
     )
 
@@ -128,7 +128,7 @@ async def landpage(
     user_name = await user_name_use_case.execute(str(current_user.get("sub", "")))
     return templates.TemplateResponse(
         request=request,
-        name="landpage.html",
+        name="application/landpage.html",
         context=_base_context(current_user, user_name, metrics),
     )
 
@@ -240,7 +240,7 @@ async def rpa(
     user_name = await user_name_use_case.execute(str(current_user.get("sub", "")))
     return templates.TemplateResponse(
         request=request,
-        name='rpa.html',
+        name='application/rpa.html',
         context={'user_email': current_user.get("email", ""), "user_name": user_name},
     )
 
@@ -263,7 +263,7 @@ async def bot(
     user_name = await user_name_use_case.execute(str(current_user.get("sub", "")))
     return templates.TemplateResponse(
         request=request,
-        name='bot.html',
+        name='application/bot.html',
         context={'user_emau': current_user.get("email", ""), "user_name": user_name},
     )
 
@@ -271,6 +271,6 @@ async def bot(
 async def login_page(request: Request) -> HTMLResponse:
     return templates.TemplateResponse(
         request=request,
-        name='login.html',
+        name='application/login.html',
         context={}
     )

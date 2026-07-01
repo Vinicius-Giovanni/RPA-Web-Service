@@ -36,4 +36,4 @@ def get_sector_repository() -> SectorRepository:
         SectorRepository:
             Implementação concreta do repositório de setores.
     """
-    return SupabaseSectorRepository
+    return SupabaseSectorRepository()

@@ -68,5 +68,5 @@ class SectorMetricsService:
         return SectorMetrics(
             sectors=[sector.raw for sector in sectors],
             total_demand=sum(sector.demand for sector in sectors),
-            total_people=sum(sectors.peoples for sector in sectors),
+            total_people=sum(sectors.peoples for sectors in sectors),
         )

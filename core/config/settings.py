@@ -141,10 +141,10 @@ class TemplateSettings:
             Diretório dos templates utilizados em integrações
             com Microsoft Teams.
     """
-    frontend_dir: Path = BASE_DIR / "frontend" / "templates" / "application"
+    frontend_dir: Path = BASE_DIR / "frontend" / "templates"
     static_dir: Path = BASE_DIR / "frontend" / "static"
-    email_dir: Path = BASE_DIR / "templates" / "emails"
-    teams_dir: Path = BASE_DIR / "templates" / "teams"
+    email_dir: Path = BASE_DIR / "frontend" /  "templates" / "emails"
+    teams_dir: Path = BASE_DIR / "frontend" / "templates" / "teams"
 
 @dataclass(frozen=True, slots=True)
 class InventoryAutomationSettings:

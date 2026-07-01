@@ -45,7 +45,7 @@ async def signup_page(request: Request) -> HTMLResponse:
         HTMLResponse
             Página de cadastro renderizada.
     """
-    return templates.TemplateResponse(request=request, name="register.html", context={})
+    return templates.TemplateResponse(request=request, name="application/register.html", context={})
 
 @router.post("/cadastro")
 async def signup(
