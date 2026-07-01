@@ -73,6 +73,18 @@ class CorrelationJsonFormatter(jsonlogger.JsonFormatter):
         log_record.setdefault('logger', record.name)
         log_record.setdefault('level', record.levelname)
 
+class MaxLevelFilter(logging.Filter):
+    """
+    Permite que um handler receba logs até um nível máximo definido
+    """
+
+    def __init__(self, max_level: int):
+        super().__init__()
+        self.max_level = logging._checkLevel(max_level)
+    
+    def filter(self, record: logging.LogRecord) -> bool:
+        return record.levelno <= self.max_level
+
 def _ensure_dirs(settings: LoggingSettings) -> None:
     """
     Garante a existência dos diretórios de logging.
@@ -130,6 +142,12 @@ def configure_logging() -> None:
                     "fmt": "%(asctime)s %(levelname)s %(name)s %(message)s %(correlation_id)s %(execution_id)s"
                 }
             },
+            "filters": {
+                "max_info": {
+                    "()": "core.logging.config.MaxLevelFilter",
+                    "max_level": "INFO",
+                }
+            },
             "handlers": {
                 "console": {"class": "logging.StreamHandler", "formatter": "json"},
                 "execution_file": {
@@ -139,6 +157,7 @@ def configure_logging() -> None:
                     "backupCount": settings.backup_count,
                     "formatter": "json",
                     "encoding": "utf-8",
+                    "filters": ["max_info"],
                 },
                 "error_file": {
                     "class": "concurrent_log_handler.ConcurrentRotatingFileHandler",
@@ -147,6 +166,7 @@ def configure_logging() -> None:
                     "formatter": "json",
                     "encoding": "utf-8",
                     "level": "ERROR",
+                    "level": "WARNING",
                 },
                 "audit_file": {
                     "class": "concurrent_log_handler.ConcurrentRotatingFileHandler",
