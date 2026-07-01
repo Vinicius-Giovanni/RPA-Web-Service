@@ -23,12 +23,12 @@ class TransitFiscal:
             origem_txt,
             destino_txt,
             destino_csv,
-            historico_csv
+            historico_parquet
     ):
         self.origem_txt = origem_txt
         self.destino_txt = destino_txt
         self.destino_csv = destino_csv
-        self.historico_csv = historico_csv
+        self.historico_parquet = historico_parquet
 
         self.file_manager = FileManager()
         self.processor = TxtManager()
@@ -60,7 +60,7 @@ class TransitFiscal:
         )
 
         df_historic = (
-            await self.repository.load_csv(self.historico_csv)
+            await self.repository.load_parquet(self.historico_parquet)
         )
 
         if not df_historic.empty:
@@ -84,8 +84,8 @@ class TransitFiscal:
             HistoricTransitFiscal.calcular_atrasos(df_historic)
         )
 
-        await self.repository.save_csv(
-            self.historico_csv,
+        await self.repository.save_parquet(
+            self.historico_parquet,
             df_historic
         )
 

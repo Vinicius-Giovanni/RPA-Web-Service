@@ -19,16 +19,18 @@ class DataframeManager:
             encoding: str = 'utf-8'
             ) -> pd.DataFrame:
         
-        if caminho is str:
+        if isinstance(caminho, str):
             path = Path(caminho)
         else:
             path = caminho
 
-        if not Path(caminho).exists():
+        if not path.exists():
             await logger.warning(f"O caminho fornecido para ler o dataframe não existe: {path}")
+            return pd.DataFrame()  # Retorna um DataFrame vazio se o caminho não existir
         
         if path.stat().st_size == 0:
             await logger.warning(f'O arquivo CSV está vazio: {path}')
+            return pd.DataFrame()  # Retorna um DataFrame vazio se o arquivo estiver vazio
 
         return pd.read_csv(
             path,
@@ -43,7 +45,7 @@ class DataframeManager:
                        encoding: str = "utf-8",
                        sep = ";") -> None:
         
-        if caminho is str:
+        if isinstance(caminho, str):
             path = Path(caminho)
         else:
             path = caminho
@@ -61,3 +63,38 @@ class DataframeManager:
             await logger.error(f"Erro ao tentar gerar arquivo CSV no caminho: {path}\n erro: {e}")
             raise
 
+    async def load_parquet(self, caminho: str | Path) -> pd.DataFrame:
+        
+        if isinstance(caminho, str):
+            path = Path(caminho)
+        else:
+            path = caminho
+
+        if not path.exists():
+            await logger.warning(f'O caminho fornecido para ler o dataframe não existe: {path}')
+            return pd.DataFrame()  # Retorna um DataFrame vazio se o caminho não existir
+        
+        if path.stat().st_size == 0:
+            await logger.warning(f'O arquivo Parquet está vazio: {path}')
+            return pd.DataFrame()  # Retorna um DataFrame vazio se o arquivo estiver vazio
+        
+        return pd.read_parquet(path).astype('string')
+    
+    async def save_parquet(self, caminho: str | Path, df: pd.DataFrame) -> None:
+        if isinstance(caminho, str):
+            path = Path(caminho)
+        else:
+            path = caminho
+
+        path.parent.mkdir(parents=True, exist_ok=True)
+        try:
+            df.to_parquet(
+                path,
+                index=False,
+                engine='pyarrow',
+                compression='zstd'
+            )
+            await logger.info(f'Arquivo Parquet criado com sucesso no caminho: {path}')
+        except Exception as e:
+            await logger.error(f'Erro ao tentar gerar arquivo Parquet no caminho: {path}\n erro: {e}')
+            raise
