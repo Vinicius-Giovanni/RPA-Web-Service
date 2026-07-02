@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from utils.dataframe_utils import read_csv
+from modules.collection_ilpn_24h.service.dataframe_utils import read_csv
 
 
 class DataFrameRepository:

@@ -1,4 +1,4 @@
-from utils.dataframe_utils import limpar_nan
+from modules.collection_ilpn_24h.service.dataframe_utils import limpar_nan
 from modules.controle_de_estoque.templates.templates import estilo_tabela , template_atraso, template_linhas_html, template_return, template_body_email
 
 

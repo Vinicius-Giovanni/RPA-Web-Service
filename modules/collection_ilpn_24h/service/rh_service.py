@@ -1,5 +1,5 @@
 from repositories.colaborador_repository import ColaboradorRepository
-from utils.dataframe_utils import normalizar_email 
+from modules.collection_ilpn_24h.service.dataframe_utils import normalizar_email 
 from models.model_cobranca_ilpn import Colaborador
 
 from core.logging.log import ExecutionLogger

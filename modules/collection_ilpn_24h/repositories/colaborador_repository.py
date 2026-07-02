@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from utils.dataframe_utils import normalizar_email
+from modules.collection_ilpn_24h.service.dataframe_utils import normalizar_email
 
 class ColaboradorRepository:
     """

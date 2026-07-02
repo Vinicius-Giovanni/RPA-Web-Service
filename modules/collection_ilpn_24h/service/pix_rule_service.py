@@ -2,7 +2,7 @@ import re
 from typing import Any
 from settings.regras_pix import REGRAS_PIX_BASE
 from models.model_cobranca_ilpn import RotaCobranca
-from utils.dataframe_utils import limpar_texto, normalizar_email
+from modules.collection_ilpn_24h.service.dataframe_utils import limpar_texto, normalizar_email
 
 
 """
