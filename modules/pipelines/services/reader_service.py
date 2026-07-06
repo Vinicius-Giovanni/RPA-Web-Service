@@ -213,3 +213,46 @@ class ReaderService:
         
         return df
     
+    async def _get_pipeline_config(self, key: str) -> dict:
+
+        cfg = self.pipeline_config.get(key)
+
+        if cfg is None:
+            await logger.warning(f"Pipeline '{key}' não encontrado")
+            raise ValueError(f"Pipeline '{key}' não encontrado")
+        
+        return cfg
+    
+    @staticmethod
+    async def _get_csv_files(path: Path) -> list[Path]:
+
+        if path.is_file():
+            return [path]
+        
+        return sorted(path.glob("*.csv"))
+    
+    @staticmethod
+    async def _duckdb_encoding(encoding: str) -> str:
+
+        mapping = {
+            "utf-8": "UTF-8",
+            'utf-16': 'UTF-16',
+            'latin-1': 'LATIN-1',
+        }
+
+        return mapping.get(
+            encoding.lower(),
+            encoding.upper(),
+        )
+    
+    @staticmethod
+    async def _sql_path_list(files: list[Path]) -> str:
+
+        return(
+            "["
+            + ", ".join(
+                f"'{str(file).replace('\'', '\'\'')}'"
+                for file in files
+            )
+            + "]"
+        )
