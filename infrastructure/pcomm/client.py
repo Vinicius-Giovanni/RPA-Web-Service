@@ -138,4 +138,42 @@ class PcommClient:
     # creen reding
 
     async def read_screen_text(self) -> str:
-        ...
+        """
+        Lê o conteúdo textual completo da área de apresentação (Presentation Space)
+        Retorna a tela como uma única string, com linhas separadas por tabulação
+        """
+        self._ensure_connected()
+
+        try:
+            rows = self._presentation_space.Rows
+            cols = self._presentation_space.Cols
+
+            lines = []
+            for row in range(1, rows + 1):
+                line = self._presentation_space.GetText(row, 1 , cols)
+                lines.append(line)
+            
+            return "\n".join(lines)
+        except pywintypes.com_error as e:
+            await logger.error(f'Erro ao ler a tela: {e}')
+
+    async def read_field(self, row: int, column: int, length: int) -> str:
+        """
+        Lê um campo específico da tela a partir de uma posição e comprimento
+        """
+        try:
+            return self._presentation_space.GetText(row, column, length).strip()
+        except pywintypes.com_error as e:
+            await logger.error(f'Erro ao ler campo em ({row}, {column}) com tamanho {length}: {e}')
+
+    # inmates
+    async def _ensure_connected(self) -> None:
+        if not self._connected or self._presentation_space is None:
+            await logger.warning('Cliente PCOMM não está conectdo. Chame connect() antes de usar')
+
+    async def __enter__(self) -> 'PcommClient':
+        self.connect()
+        return self
+    
+    async def __exist__(self, exc_type, exc_val, exc_tb) -> None:
+        self.disconnect()
