@@ -300,3 +300,23 @@ Testes automatizados da aplicação.
 - Testes de integração.
 - Mocks.
 - Fixtures.
+
+
+
+# Extração de Relatório de Notas Fiscais Pendentes
+
+settings/pcomm_settings.py: definir sessão A e timeouts.
+
+infrastructure/pcomm/client.py: conectar, validar sessão, enviar teclas e ler texto.
+
+infrastructure/pcomm/session_validator.py: validar explicitamente se a sessão A está aberta.
+
+infrastructure/pcomm/screen_parser.py: extrair os campos que aparecem na tela.
+
+domain/entities/registro_pcomm.py: representar a linha do Parquet e os dados enriquecidos.
+
+infrastructure/files/parquet_repository_impl.py: ler as 3 colunas e salvar o resultado.
+
+infrastructure/service/enriquecimento_service.py: aplicar a regra de negócio de enriquecimento.
+
+app/use_cases/processar_parquet_pcomm.py: orquestrar a leitura, consulta ao PCOMM e escrita do Parquet.
