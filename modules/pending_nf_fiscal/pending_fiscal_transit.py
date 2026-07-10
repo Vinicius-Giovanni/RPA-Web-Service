@@ -3,7 +3,7 @@ from pathlib import Path
 from uuid import uuid4
 import argparse
 
-from app.services.transit_fiscal import TransitFiscal
+from modules.pending_nf_fiscal.services.transit_fiscal import TransitFiscal
 from core.logging.log import ExecutionLogger
 from settings.paths import PENDING_FISCAL_HISTORICO_PARQUET, PENDING_FISCAL_DESTINO_CSV, PENDING_FISCAL_DESTINO_TXT, PENDING_FISCAL_ORIGEM_TXT
 

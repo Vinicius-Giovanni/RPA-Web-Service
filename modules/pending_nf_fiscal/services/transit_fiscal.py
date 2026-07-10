@@ -4,7 +4,7 @@ from datetime import datetime
 from infrastructure.files.file_manager import FileManager
 from infrastructure.files.txt_manager import TxtManager
 from infrastructure.dataframes.dataframe_manager import DataframeManager
-from domain.services.historic_trans_fiscal import HistoricTransitFiscal
+from modules.pending_nf_fiscal.services.historic_trans_fiscal import HistoricTransitFiscal
 from core.logging.log import ExecutionLogger
 from uuid import uuid4
 
@@ -12,7 +12,7 @@ from uuid import uuid4
 Fluxo de processamento doe dados de trânsito fiscal.
 
 Este módulo contém a implementação responsável por orquestrar
-todo o processo de atualização e acompahamento dos dados de trânsito fiscal.
+todo o processo de atualização e acompanhamento dos dados de trânsito fiscal.
 
 O fluxo executado consiste em:
 
