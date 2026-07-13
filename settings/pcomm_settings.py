@@ -44,7 +44,7 @@ class PcommTimeoutSettings:
     # Nº max de tentativasao validar se a sessão está pronta
     max_retries: int = 5
 
-@dataclass(fronze=True)
+@dataclass(frozen=True)
 class PcommAutomationSettings:
     """
     Agrupador geral de configurações usadas pelo client PCOMM.

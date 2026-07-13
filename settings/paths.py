@@ -4,7 +4,7 @@ from datetime import datetime
 from dotenv import load_dotenv
 import os
 
-ENV_PATH = Path(__file__).resolve().parents[1] / ".env"
+ENV_PATH = Path(".env")
 load_dotenv(dotenv_path=ENV_PATH)
 
 # Variáveis protegidas
