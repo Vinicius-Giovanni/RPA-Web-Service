@@ -34,3 +34,6 @@ PENDING_FISCAL_ORIGEM_TXT = Path(f'//nascds.viavarejo.com.br/cd1200/share2/ger_o
 PENDING_FISCAL_DESTINO_TXT = Path(f'C:/Users/{ID_EMPLOYEE}/OneDrive - Grupo Casas Bahia S.A/Sala PCP - Online_A.B.S - Data Lakehouse/Bronze (Raw Layer)/REL_MERC_N_RECEBIDA/DIR_TXT/REL_MERC_N_RECEBIDA_{TODAY.strftime("%Y%m%d")}txt')
 PENDING_FISCAL_DESTINO_CSV = Path(f'C:/Users/{ID_EMPLOYEE}/OneDrive - Grupo Casas Bahia S.A/Sala PCP - Online_A.B.S - Data Lakehouse/Bronze (Raw Layer)/REL_MERC_N_RECEBIDA/DIR_CSV/REL_MERC_N_RECEBIDA_{TODAY.strftime("%Y%m%d")}.csv')
 PENDING_FISCAL_HISTORICO_PARQUET = Path(f'C:/Users/{ID_EMPLOYEE}/OneDrive - Grupo Casas Bahia S.A/Sala PCP - Online_A.B.S - Data Lakehouse/Gold (Business Layer)/REL_MERC_N_RECEBIDA/BASE_INDICADORES_MERC_N_RECEBIDA.parquet')
+
+# Geração de Base de Dados para Transito Fiscal
+EXTRACT_INVOICES_TXT_PATH = Path(r'\\nascds.viavarejo.com.br\cd1200\share2\ger_oper1200\Controles_Logisticos\Controle_Transito_fiscal')

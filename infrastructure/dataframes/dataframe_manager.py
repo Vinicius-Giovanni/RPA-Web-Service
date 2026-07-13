@@ -98,3 +98,66 @@ class DataframeManager:
         except Exception as e:
             await logger.error(f'Erro ao tentar gerar arquivo Parquet no caminho: {path}\n erro: {e}')
             raise
+
+    def load_txt(
+            self,
+            caminho: str | Path,
+            sep: str = ';',
+            encoding: str = 'utf-8',
+            columns: list[str] | None = None
+    ) -> pd.DataFrame:
+        
+        if isinstance(caminho, str):
+            path = Path(caminho)
+        else:
+            path = caminho
+
+        if not path.exists():
+            return pd.DataFrame()
+        
+        arquivos_txt = []
+
+        # Caso seja um arquivo único
+        if path.is_file():
+
+            if path.suffix.lower() != ".txt":
+                return pd.DataFrame()
+            
+            arquivos_txt.append(path)
+        
+        # Caso seja uma pasta
+        elif path.is_dir():
+
+            arquivos_txt = list(path.glob("*.txt"))
+
+            if not arquivos_txt:
+                return pd.DataFrame()
+            
+        dataframes = []
+
+        try:
+            for arquivo in arquivos_txt:
+
+                if arquivo.stat().st_size == 0:
+                    continue
+                
+                df = pd.read_csv(
+                    arquivo,
+                    sep=sep,
+                    encoding=encoding,
+                    dtype=str,
+                    usecols=columns
+                )
+
+                dataframes.append(df)
+
+            if not dataframes:
+                return pd.DataFrame()
+            
+            return pd.concat(
+                dataframes,
+                ignore_index=True
+            )
+        
+        except Exception as e:
+            raise
