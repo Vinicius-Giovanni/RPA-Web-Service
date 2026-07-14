@@ -92,6 +92,34 @@ class PcommClient:
             length
         ).strip()
     
+    def wait_text(
+            self,
+            row: int,
+            column: int,
+            length: int,
+            timeout: int = 0.2,
+            default: str = 'VAZIO'
+    ):
+        import time
+
+        start = time.time()
+
+        while True:
+
+            value = self.read(
+                row=row,
+                column=column,
+                length=length
+            )
+
+            if value.strip():
+                return value.strip()
+            
+            if time.time() - start > timeout:
+                return default
+            
+            time.sleep(0.2)
+
     def wait_ready(self, timeout: int = 30):
 
         import time
@@ -102,12 +130,12 @@ class PcommClient:
 
             if self.oia.InputInhibited == 0:
                 return
-            
+
             if time.time() - start > timeout:
                 raise TimeoutError(
                     "Terminal não ficou disponível."
                 )
-            
+
             time.sleep(0.1)
 
     def __enter__(self):

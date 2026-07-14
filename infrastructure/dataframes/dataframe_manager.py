@@ -39,7 +39,7 @@ class DataframeManager:
             dtype=str
         )
     
-    async def save_csv(self,
+    def save_csv(self,
                        caminho: str | Path,
                        df: pd.DataFrame, 
                        encoding: str = "utf-8",
@@ -58,12 +58,11 @@ class DataframeManager:
                 sep=sep,
                 encoding=encoding
             )
-            await logger.info(f"Arquivo CSV criado com sucesso no caminho: {path}")
         except Exception as e:
-            await logger.error(f"Erro ao tentar gerar arquivo CSV no caminho: {path}\n erro: {e}")
-            raise
+            print('Erro ao ler o CSV')
 
-    async def load_parquet(self, caminho: str | Path) -> pd.DataFrame:
+
+    def load_parquet(self, caminho: str | Path) -> pd.DataFrame:
         
         if isinstance(caminho, str):
             path = Path(caminho)
@@ -71,11 +70,9 @@ class DataframeManager:
             path = caminho
 
         if not path.exists():
-            await logger.warning(f'O caminho fornecido para ler o dataframe não existe: {path}')
             return pd.DataFrame()  # Retorna um DataFrame vazio se o caminho não existir
         
         if path.stat().st_size == 0:
-            await logger.warning(f'O arquivo Parquet está vazio: {path}')
             return pd.DataFrame()  # Retorna um DataFrame vazio se o arquivo estiver vazio
         
         return pd.read_parquet(path).astype('string')

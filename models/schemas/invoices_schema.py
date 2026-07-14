@@ -31,14 +31,19 @@ class InvoiceModel:
             errors='coerce'
         )
 
+        # Remove dadas NaN
+        df = df.dropna(
+            subset=['Data Saída']
+        )
+
         # Criar formato esperado pelo PCOM: MM AAAA
         df['mes_ano'] = (
             df['Data Saída']
-            .dt.strftime('%m %Y')
+            .dt.strftime('%m%Y')
         )
 
         # Separar NF
-        df[['filial', 'nota fiscal']] = (
+        df[['filial', 'nota_fiscal']] = (
             df['NF']
             .str.extract(
                 r"(\d+)\s*-\s*(\d+)"
@@ -50,6 +55,8 @@ class InvoiceModel:
             df['filial']
             .astype(int)
         )
+
+        df = df.reset_index(drop=True)
 
         return df
 
