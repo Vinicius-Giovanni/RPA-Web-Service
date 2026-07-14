@@ -10,15 +10,13 @@ load_dotenv(dotenv_path=ENV_PATH)
 # Variáveis protegidas
 ID_EMPLOYEE = os.getenv('ID_EMPLOYEE')
 
-# All configs =========================================================
+# Principal configs ======================================================================================================
 BASE_DIR = Path(f'C:/Users/{ID_EMPLOYEE}/Desktop/project/RPA-Web-Service')
 DATA_DIR = Path(f'C:/Users/{ID_EMPLOYEE}/OneDrive - Grupo Casas Bahia S.A/Sala PCP - Online_A.B.S - Data Lakehouse')
 LOG_DIR = BASE_DIR / "logs"
 LOG_EXECUTIONS = LOG_DIR / 'executions'
 
 TODAY = datetime.now()
-
-
 
 # # Dados -- ALterar depois
 # PATH_ILPNS = DATA_DIR / "ILPNs.xlsx"
@@ -29,13 +27,15 @@ TODAY = datetime.now()
 # PATH_HISTORICO_PBI = DATA_DIR / "historico_pbi.xlsx"
 # PATH_LOG_EXECUCAO = LOG_EXECUTIONS / "controle_estoque.jsonl"
 
-# Transito Fiscal ============================================================
-PENDING_FISCAL_ORIGEM_TXT = Path(fr'//nascds.viavarejo.com.br/cd1200/share2/ger_oper1200/Controles_Logisticos/Controle_NF_transito/REL_MERC_N_RECEBIDA_{TODAY.strftime("%Y%m%d")}txt')
-PENDING_FISCAL_DESTINO_TXT = Path(fr'C:/Users/{ID_EMPLOYEE}/OneDrive - Grupo Casas Bahia S.A/Sala PCP - Online_A.B.S - Data Lakehouse/Bronze (Raw Layer)/REL_MERC_N_RECEBIDA/DIR_TXT/REL_MERC_N_RECEBIDA_{TODAY.strftime("%Y%m%d")}txt')
-PENDING_FISCAL_DESTINO_CSV = Path(fr'C:/Users/{ID_EMPLOYEE}/OneDrive - Grupo Casas Bahia S.A/Sala PCP - Online_A.B.S - Data Lakehouse/Bronze (Raw Layer)/REL_MERC_N_RECEBIDA/DIR_CSV/REL_MERC_N_RECEBIDA_{TODAY.strftime("%Y%m%d")}.csv')
-PENDING_FISCAL_HISTORICO_PARQUET = Path(fr'C:/Users/{ID_EMPLOYEE}/OneDrive - Grupo Casas Bahia S.A/Sala PCP - Online_A.B.S - Data Lakehouse/Gold (Business Layer)/REL_MERC_N_RECEBIDA/BASE_INDICADORES_MERC_N_RECEBIDA.parquet')
-
-# Geração de Base de Dados para Transito Fiscal
+# Geração de Base de Dados para Transito Fiscal ======================================================================================================
 EXTRACT_INVOICES_TXT_PATH = Path(r'\\nascds.viavarejo.com.br\cd1200\share2\ger_oper1200\Controles_Logisticos\Controle_Transito_fiscal')
 
-SAVE_CSV_INVOICES = Path(fr'C:\Users\{ID_EMPLOYEE}\Desktop')
+SAVE_CSV_INVOICES = Path(fr'C:\Users\{ID_EMPLOYEE}\Desktop\extract_invoice.csv')
+
+# Extração de relatórios do IBM Cognos
+
+COOKIES_FILE = Path(r'cookies.json')
+
+FILES_DIRS = {
+    ''
+}

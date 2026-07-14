@@ -20,8 +20,7 @@ class ExecutePcommExtractInvoices:
         dataframe_manager = DataframeManager()
         df = dataframe_manager.load_txt(
             caminho=EXTRACT_INVOICES_TXT_PATH,
-            encoding='latin1',
-            columns=['Data Saída', 'NF', 'Descrição', 'Descrição', 'Valor C Mercadoria']
+            encoding='latin1'
         )
 
         df = InvoiceModel.transform(df)
@@ -65,10 +64,10 @@ class ExecutePcommExtractInvoices:
 
             pcom.wait_ready()
 
-            pcom.send_text(os.getenv('PCOMM_EMP'))
-            pcom.send_text(os.getenv('PCOMM_USER'))
+            pcom.send_text(text=os.getenv('PCOMM_EMP'), row=3, column=51)
+            pcom.send_text(text=os.getenv('PCOMM_USER'), row=3,column=54)
             pcom.send_key('[tab]')
-            pcom.send_text(os.getenv('PCOMM_PASSWORD'))
+            pcom.send_text(text=os.getenv('PCOMM_PASSWORD'), row=3, column=70)
             pcom.send_key('[tab]')
 
             pcom.send_text('2')

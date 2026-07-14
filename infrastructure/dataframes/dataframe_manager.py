@@ -59,7 +59,7 @@ class DataframeManager:
                 encoding=encoding
             )
         except Exception as e:
-            print('Erro ao ler o CSV')
+            print(f'Erro ao ler o CSV: {e}')
 
 
     def load_parquet(self, caminho: str | Path) -> pd.DataFrame:

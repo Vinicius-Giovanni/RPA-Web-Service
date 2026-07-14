@@ -67,6 +67,6 @@ async def start_browser():
     
     from playwright.async_api import async_playwright
 
-    playwright = async_playwright().start()
-    browser, page = chromium_custom(playwright)
+    playwright = await async_playwright().start()
+    browser, page = await chromium_custom(playwright)
     return playwright, browser, page
