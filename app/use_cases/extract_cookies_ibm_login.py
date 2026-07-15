@@ -15,9 +15,20 @@ logger = ExecutionLogger(
 
 class ExtractCookiesLogin:
 
+    @staticmethod
     async def login(page, email: str, password: str, dir_cookies: str | Path) -> list[dict]:
 
         await page.goto(LINKS['LOGIN'])
 
         # Tela inicial
         await page.locator(ELEMENTS_LOGIN['window_validation_login']).wait_for()
+
+        # Dropdown Azure AD select
+        await page.locator(
+            ELEMENTS_LOGIN['namespace_dropdown_button']
+        ).click()
+
+        # Dropdown Azure AD select Azure AD
+
+        await logger.info('Tela de extração de cookies validada')
+

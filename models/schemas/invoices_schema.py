@@ -1,6 +1,6 @@
 from datetime import datetime
 import pandas as pd
-
+import numpy as np
 class InvoiceModel:
     REQUIRED_COLUMNS = [
         'Data Saída',
@@ -19,6 +19,15 @@ class InvoiceModel:
         
         return True
     
+    @classmethod
+    def status_pcom(cls, df: pd.DataFrame) -> None:
+
+        df['status_pcom'] = np.where(
+            df['situacao_2'].str.contains('Confirma', na=False),
+            "Resolvida",
+            'Pendente'
+        )
+
     @classmethod
     def transform(cls, df: pd.DataFrame) -> pd.DataFrame:
 

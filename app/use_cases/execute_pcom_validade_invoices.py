@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from tqdm import tqdm
 
 from settings.paths import ENV_PATH, EXTRACT_INVOICES_TXT_PATH, SAVE_CSV_INVOICES
-from pathlib import Path
+import numpy as np  
 
 load_dotenv(dotenv_path=ENV_PATH)
 
@@ -136,31 +136,10 @@ class ExecutePcommExtractInvoices:
                 how='left'
             )
 
+            InvoiceModel.status_pcom(df=df)
+
             dataframe_manager.save_csv(
                 caminho=SAVE_CSV_INVOICES,
                 df=df,
                 sep='\t'
             )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-
-
-
-
-
-
-
