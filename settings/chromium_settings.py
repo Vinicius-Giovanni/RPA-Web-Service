@@ -26,9 +26,9 @@ async def chromium_custom(instance):
         temp_profile.mkdir(exist_ok=True, parents=True)
 
     # -- Configuração de Chromium
-    browser = instance.chromium.launch_persistent_context(
+    browser = await instance.chromium.launch_persistent_context(
         user_data_dir=str(temp_profile),
-        headless=True, # Extração vai ocorrer sem renderização gráfica
+        headless=False, # Extração vai ocorrer sem renderização gráfica
         args=[
             "--disable-popup-blocking",
             "--disable-notifications",
@@ -44,7 +44,7 @@ async def chromium_custom(instance):
         chromium_sandbox=False,
     )
 
-    page = browser.new_page()
+    page = browser.pages[0]
     return browser, page
 
 async def start_browser():

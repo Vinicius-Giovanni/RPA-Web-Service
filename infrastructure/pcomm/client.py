@@ -97,7 +97,7 @@ class PcommClient:
             row: int,
             column: int,
             length: int,
-            timeout: int = 0.2,
+            timeout: int = 0.1,
             default: str = 'VAZIO'
     ):
         import time

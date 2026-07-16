@@ -3,7 +3,6 @@ from pathlib import Path
 from datetime import datetime
 from dotenv import load_dotenv
 import os
-import datetime
 
 ENV_PATH = Path(".env")
 load_dotenv(dotenv_path=ENV_PATH)
@@ -31,7 +30,7 @@ TODAY = datetime.now()
 # Geração de Base de Dados para Transito Fiscal ======================================================================================================
 EXTRACT_INVOICES_TXT_PATH = Path(r'\\nascds.viavarejo.com.br\cd1200\share2\ger_oper1200\Controles_Logisticos\Controle_Transito_fiscal')
 
-SAVE_CSV_INVOICES = Path(fr'{DATA_DIR}/Gold (Business Layer)/pcom_validade_invoices/extract_invoice_{datetime.now():%Y-%m-%d_%H%M}.csv')
+SAVE_CSV_INVOICES = Path(fr'{DATA_DIR}/Bronze (Raw Layer)/pcom_validade_invoices/extract_invoice_{datetime.now():%Y-%m-%d_%H%M}.csv')
 
 # Extração de relatórios do IBM Cognos
 
