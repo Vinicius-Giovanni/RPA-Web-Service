@@ -12,33 +12,71 @@ logger = ExecutionLogger(
 
 class DataframeManager:
 
-    async def load_csv(
+    def load_csv(
             self,
             caminho: str | Path,
             sep: str = ';',
-            encoding: str = 'utf-8'
+            encoding: str = 'utf-8',
+            columns: list[str] | None = None
             ) -> pd.DataFrame:
         
-        if isinstance(caminho, str):
-            path = Path(caminho)
-        else:
-            path = caminho
+        path = Path(caminho)
 
         if not path.exists():
-            await logger.warning(f"O caminho fornecido para ler o dataframe não existe: {path}")
-            return pd.DataFrame()  # Retorna um DataFrame vazio se o caminho não existir
+            return pd.DataFrame()
         
-        if path.stat().st_size == 0:
-            await logger.warning(f'O arquivo CSV está vazio: {path}')
-            return pd.DataFrame()  # Retorna um DataFrame vazio se o arquivo estiver vazio
+        csv_files = []
 
-        return pd.read_csv(
-            path,
-            sep=sep,
-            encoding=encoding,
-            dtype=str
-        )
-    
+        # Caso seja um arquivo único
+        if path.is_file():
+
+            if path.suffix.lower() != '.csv':
+                return pd.DataFrame()
+            
+            csv_files.append(path)
+
+        # Caso seja uma pasta
+        elif path.is_dir():
+
+            csv_files = sorted(path.glob('*csv'))
+
+            if not csv_files:
+                return pd.DataFrame()
+            
+        dataframes = []
+
+        try:
+
+            for file in csv_files:
+
+                if file.stat().st_size == 0:
+                    continue
+
+                df = pd.read_csv(
+                    file,
+                    sep=sep,
+                    encoding=encoding,
+                    dtype=str,
+                    usecols=columns,
+                    low_memory=False
+                )
+
+                dataframes.append(df)
+            
+            if not dataframes:
+                return pd.DataFrame()
+            
+            return pd.concat(
+                dataframes,
+                ignore_index=True
+            )
+        
+        except Exception as e:
+            raise RuntimeError(
+                f'Erro ao carregar arquivos CSV: {e}'
+            ) from e
+
+
     def save_csv(self,
                        caminho: str | Path,
                        df: pd.DataFrame, 

@@ -143,3 +143,12 @@ class ExecutePcommExtractInvoices:
                 df=df,
                 sep='\t'
             )
+
+            # Criando histórico
+
+            InvoiceModel.update_history(
+                bronze_df=df,
+                gold_path=...,
+                nf_column='nota_fiscal',
+                status_column='status_pcom'
+            )
