@@ -15,6 +15,8 @@ df = data.load_csv(
 
 print(df.head())
 
+InvoiceModel.status_pcom(df=df)
+
 InvoiceModel.update_history(
         bronze_df=df,
         gold_path=GOLD_INVOICE,

@@ -24,9 +24,9 @@ class InvoiceModel:
     def status_pcom(cls, df: pd.DataFrame) -> None:
 
         df['status_pcom'] = np.where(
-            df['situacao_2'].str.contains('Confirma', na=False),
+            df['situacao_2'].str.contains('Confirma|ancelam', case=True, na=False),
             "Resolvido",
-            'Pendente'
+            "Pendente"
         )
 
     @classmethod
