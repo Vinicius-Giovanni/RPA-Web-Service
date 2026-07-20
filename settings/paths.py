@@ -32,6 +32,8 @@ EXTRACT_INVOICES_TXT_PATH = Path(r'\\nascds.viavarejo.com.br\cd1200\share2\ger_o
 
 SAVE_CSV_INVOICES = Path(fr'{DATA_DIR}/Bronze (Raw Layer)/pcom_validade_invoices/extract_invoice_{datetime.now():%Y-%m-%d_%H%M}.csv')
 
+GOLD_INVOICE = Path(fr'{DATA_DIR}\Gold (Business Layer)\pcom_validade_invoices')
+
 # Extração de relatórios do IBM Cognos
 
 COOKIES_FILE = Path(r'cookies.json')

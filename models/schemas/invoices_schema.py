@@ -101,6 +101,8 @@ class InvoiceModel:
             .copy()
         )
 
+        print(bronze_df.columns)
+
         # Primeira execução
         if not history_path.exists():
 

@@ -4,7 +4,7 @@ import os
 from dotenv import load_dotenv
 from tqdm import tqdm
 
-from settings.paths import ENV_PATH, EXTRACT_INVOICES_TXT_PATH, SAVE_CSV_INVOICES
+from settings.paths import ENV_PATH, EXTRACT_INVOICES_TXT_PATH, SAVE_CSV_INVOICES, GOLD_INVOICE
 import numpy as np  
 
 load_dotenv(dotenv_path=ENV_PATH)
@@ -141,14 +141,14 @@ class ExecutePcommExtractInvoices:
             dataframe_manager.save_csv(
                 caminho=SAVE_CSV_INVOICES,
                 df=df,
-                sep='\t'
+                sep=';'
             )
 
             # Criando histórico
 
             InvoiceModel.update_history(
                 bronze_df=df,
-                gold_path=...,
+                gold_path=GOLD_INVOICE,
                 nf_column='nota_fiscal',
                 status_column='status_pcom'
             )
