@@ -62,3 +62,5 @@ class PcommAutomationSettings:
 
 # instância única (singleon simples) para uso direto nos demais módulos
 pcomm_settings = PcommAutomationSettings()
+
+CHECKPOINT = 1000 # A cada 1000nfs consultadas, ele faz um save para não perdermos o progresso

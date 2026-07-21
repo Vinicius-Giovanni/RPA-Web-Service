@@ -4,6 +4,7 @@ import os
 from dotenv import load_dotenv
 from tqdm import tqdm
 
+from settings.pcomm_settings import CHECKPOINT
 from settings.paths import ENV_PATH, EXTRACT_INVOICES_TXT_PATH, SAVE_CSV_INVOICES, GOLD_INVOICE
 import numpy as np  
 
@@ -116,6 +117,20 @@ class ExecutePcommExtractInvoices:
                 df_consulta.at[row.Index, "situacao"] = situacao.strip()
                 df_consulta.at[row.Index, "situacao_2"] = situacao_2.strip()
                 df_consulta.at[row.Index, "sefaz"] = sefaz.strip()
+
+                # Checkpoint
+                try:
+                    if(row.Index + 1) % CHECKPOINT == 0:
+                        dataframe_manager.save_csv(
+                            caminho=SAVE_CSV_INVOICES,
+                            df=df_consulta,
+                            sep=';'
+                        )
+
+                    print(f'Checkpoint salvo: {row.Index + 1} NFs processadas.')
+
+                except Exception as e:
+                    print(f'Erro ao salvar checkpoint: {e}')
 
                 pcom.send_key('[enter]')
 
