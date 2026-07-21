@@ -41,3 +41,7 @@ COOKIES_FILE = Path(r'cookies.json')
 FILES_DIRS = {
     ''
 }
+
+
+# Pipelines -- Pcomm -- REL_MERC_ENV__CONF
+PATH_ORIGIN = Path(fr'\\nascds.viavarejo.com.br\cd1200\share2\ger_oper1200\Controles_Logisticos\Controle_NF_transito\REL_MERC_ENV_N_CONF_{TODAY:%Y%m%d}txt')

@@ -11,7 +11,7 @@ import numpy as np
 load_dotenv(dotenv_path=ENV_PATH)
 
 from infrastructure.dataframes.dataframe_manager import DataframeManager
-from models.schemas.invoices_schema import InvoiceModel
+from models.schemas.invoices_model import InvoiceModel
 from infrastructure.pcomm.client import PcommClient
 
 class ExecutePcommExtractInvoices:

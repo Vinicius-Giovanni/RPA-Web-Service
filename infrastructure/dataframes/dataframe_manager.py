@@ -155,7 +155,7 @@ class DataframeManager:
         # Caso seja um arquivo único
         if path.is_file():
 
-            if path.suffix.lower() != ".txt":
+            if path.suffix and path.suffix.lower() != ".txt":
                 return pd.DataFrame()
             
             arquivos_txt.append(path)

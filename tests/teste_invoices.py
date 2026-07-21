@@ -1,4 +1,4 @@
-from models.schemas.invoices_schema import InvoiceModel
+from models.schemas.invoices_model import InvoiceModel
 from infrastructure.dataframes.dataframe_manager import DataframeManager
 from pathlib import Path
 from settings.paths import GOLD_INVOICE
