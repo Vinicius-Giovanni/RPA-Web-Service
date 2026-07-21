@@ -115,7 +115,7 @@ class DataframeManager:
         
         return pd.read_parquet(path).astype('string')
     
-    async def save_parquet(self, caminho: str | Path, df: pd.DataFrame) -> None:
+    def save_parquet(self, caminho: str | Path, df: pd.DataFrame) -> None:
         if isinstance(caminho, str):
             path = Path(caminho)
         else:
@@ -129,9 +129,7 @@ class DataframeManager:
                 engine='pyarrow',
                 compression='zstd'
             )
-            await logger.info(f'Arquivo Parquet criado com sucesso no caminho: {path}')
         except Exception as e:
-            await logger.error(f'Erro ao tentar gerar arquivo Parquet no caminho: {path}\n erro: {e}')
             raise
 
     def load_txt(

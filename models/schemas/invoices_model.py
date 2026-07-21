@@ -8,6 +8,31 @@ class RelMercEnvNConfModel:
     _COLUMNS_TYPES = COLUMNS_TYPES
 
     @classmethod
+    def transform(cls, df:pd.DataFrame) -> pd.DataFrame:
+
+        df['DT_EMI'] = pd.to_datetime(
+            df['DT_EMI'],
+            format='%d.%m.%Y',
+            errors='coerce'
+        )
+
+        df['VALOR_TOT'] = (
+            df['VALOR_TOT']
+            .str.strip()
+            .str.replace(".", "", regex=False)
+            .str.replace(",", ".", regex=False)
+        )
+
+        df['VALOR_TOT'] = pd.to_numeric(
+            df['VALOR_TOT'],
+            errors='coerce'
+        )
+
+        return df
+
+
+
+    @classmethod
     def validate_schema(cls, df: pd.DataFrame) -> pd.DataFrame:
     
         # Remove colunas completamente vazia
@@ -49,6 +74,11 @@ class RelMercEnvNConfModel:
 
         df_origem = df_origem.copy()
         df_historico = df_historico.copy()
+
+        # Primeira execução: histórico vazio
+        if df_historico.empty:
+            df_origem['STATUS_CONTROLE'] = "Pendente"
+            return df_origem
 
         if "STATUS_CONTROLE" not in df_historico.columns:
             df_historico['STATUS_CONTROLE'] = pd.NA
