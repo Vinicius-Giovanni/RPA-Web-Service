@@ -47,3 +47,7 @@ FILES_DIRS = {
 PATH_ORIGIN = Path(fr'\\nascds.viavarejo.com.br\cd1200\share2\ger_oper1200\Controles_Logisticos\Controle_NF_transito\REL_MERC_ENV_N_CONF_{TODAY:%Y%m%d}txt')
 PATH_BRONZE_CSV = Path(fr'{DATA_DIR}/Bronze (Raw Layer)/pcom_validade_invoices/data_enrich_invoices.csv')
 PATH_GOLD_PARQUET = Path(fr'{DATA_DIR}/Gold (Business Layer)/pcom_validade_invoices/data_enrich_invoices.parquet')
+
+# Pipelines -- Pcomm -- Acertos
+PATH_BRONZE_CSV_ACERTOS = Path(fr'{DATA_DIR}/Bronze (Raw Layer)/pcom_extract_acertos/extract_pcomm_acertos.csv')
+PATH_SILVER_CSV_ACERTOR = Path(fr'{DATA_DIR}/Silver (Cleansed Layer)/pcom_extract_acertos/extract_pcomm_acertos.csv')

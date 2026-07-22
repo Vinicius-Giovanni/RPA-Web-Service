@@ -36,10 +36,10 @@ class PcommTimeoutSettings:
     screen_ready_timeout: float = 10.0
 
     # intervalo entre tentativa de polling de tela
-    polling_interval: float = 0.3
+    polling_interval: float = 0.1
 
     # Tempo de espera padrão após envio de uma tecla/commando
-    post_keystroke_delay: float = 0.5
+    post_keystroke_delay: float = 0.1
 
     # Nº max de tentativasao validar se a sessão está pronta
     max_retries: int = 5

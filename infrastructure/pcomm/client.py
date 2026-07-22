@@ -118,7 +118,7 @@ class PcommClient:
             if time.time() - start > timeout:
                 return default
             
-            time.sleep(0.2)
+            time.sleep(0.05)
 
     def wait_ready(self, timeout: int = 30):
 
@@ -136,7 +136,7 @@ class PcommClient:
                     "Terminal não ficou disponível."
                 )
 
-            time.sleep(0.1)
+            time.sleep(0.05)
 
     def __enter__(self):
         self.connect()

@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from tqdm import tqdm
 
 from settings.pcomm_settings import CHECKPOINT
-from settings.paths import ENV_PATH, EXTRACT_INVOICES_TXT_PATH, SAVE_CSV_INVOICES, GOLD_INVOICE
+from settings.paths import ENV_PATH
 import numpy as np  
 
 load_dotenv(dotenv_path=ENV_PATH)
@@ -20,7 +20,7 @@ class ExecutePcommExtractInvoices:
 
         dataframe_manager = DataframeManager()
         df = dataframe_manager.load_txt(
-            caminho=EXTRACT_INVOICES_TXT_PATH,
+            caminho=...,
             encoding='latin1'
         )
 
@@ -122,7 +122,7 @@ class ExecutePcommExtractInvoices:
                 try:
                     if(row.Index + 1) % CHECKPOINT == 0:
                         dataframe_manager.save_csv(
-                            caminho=SAVE_CSV_INVOICES,
+                            caminho=...,
                             df=df_consulta,
                             sep=';'
                         )
@@ -154,16 +154,7 @@ class ExecutePcommExtractInvoices:
             InvoiceModel.status_pcom(df=df)
 
             dataframe_manager.save_csv(
-                caminho=SAVE_CSV_INVOICES,
+                caminho=...,
                 df=df,
                 sep=';'
-            )
-
-            # Criando histórico
-
-            InvoiceModel.update_history(
-                bronze_df=df,
-                gold_path=GOLD_INVOICE,
-                nf_column='nota_fiscal',
-                status_column='status_pcom'
             )

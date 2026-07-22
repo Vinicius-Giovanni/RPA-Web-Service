@@ -3,7 +3,7 @@
 
 
 # RelMercEnvNConfModel
-REQUIRED_COLUMNS = [
+RelMercEnvNConfModel_REQUIRED_COLUMNS = [
     "EMPRESA_EMI",
     "EMPRESA_DST",
     "FILIAL_DST",
@@ -18,7 +18,7 @@ REQUIRED_COLUMNS = [
     "TP. REL",
 ]
 
-COLUMNS_TYPES = {
+RelMercEnvNConfModel_COLUMNS_TYPES = {
     "EMPRESA_EMI": "Int64",
     "EMPRESA_DST": "Int64",
     "FILIAL_DST": "Int64",
@@ -34,9 +34,28 @@ COLUMNS_TYPES = {
     
 }
 
-FILIAIS_CD = {
+RelMercEnvNConfModel_FILIAIS_CD = {
     '14', '125', '1200', '1400', '1401', '1445', '1475', '1500', '1522', '1600',
     '1624', '1635', '1640', '1668', '1673', '1736', '1760', '1792', '1850', '1875',
     '1876', '1877', '1882', '1887', '1888', '1895', '1999', '2241', '2600', '3600',
     '3601', '3602', '1454', '1778'
+}
+
+
+# ExecutePcommExtractAcertosModel
+ExecutePcommExtractAcertosModel_REQUIRED_COLUMNS = [
+    "codigo",
+    "empresa",
+    "filial",
+    "descricao",
+    'tipo_de_acerto'
+]
+
+
+ExecutePcommExtractAcertosModel_COLUMNS_TYPES = {
+    "codigo": 'Int64',
+    "empresa": 'Int64',
+    'filial': 'Int64',
+    'descricao': 'string',
+    'tipo_de_acerto': 'string'
 }

@@ -193,3 +193,7 @@ class DataframeManager:
         
         except Exception as e:
             raise
+
+    def load_dataframe(self, df: pd.DataFrame) -> pd.DataFrame:
+        DataFrame = pd.DataFrame(df)
+        return DataFrame

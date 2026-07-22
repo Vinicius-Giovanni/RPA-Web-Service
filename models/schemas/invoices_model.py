@@ -1,11 +1,12 @@
 import pandas as pd
 
-from settings.pipelines_config import COLUMNS_TYPES, REQUIRED_COLUMNS, FILIAIS_CD
+from settings.pipelines_config import RelMercEnvNConfModel_COLUMNS_TYPES, RelMercEnvNConfModel_REQUIRED_COLUMNS, RelMercEnvNConfModel_FILIAIS_CD
 
 class RelMercEnvNConfModel:
 
-    _REQUIRED_COLUMNS = REQUIRED_COLUMNS
-    _COLUMNS_TYPES = COLUMNS_TYPES
+    _REQUIRED_COLUMNS = RelMercEnvNConfModel_REQUIRED_COLUMNS
+    _COLUMNS_TYPES = RelMercEnvNConfModel_COLUMNS_TYPES
+    _FILIAIS_CD = RelMercEnvNConfModel_FILIAIS_CD
 
     @classmethod
     def transform(cls, df:pd.DataFrame) -> pd.DataFrame:
@@ -46,7 +47,7 @@ class RelMercEnvNConfModel:
         df['TIPO_FILIAL_EMI'] = (
             df['FILIAL_EMI']
             .astype(str)
-            .isin(FILIAIS_CD)
+            .isin(cls._FILIAIS_CD)
             .map({True: "CD", False: "LOJA"})
         )
 
@@ -54,7 +55,7 @@ class RelMercEnvNConfModel:
         df['TIPO_FILIAL_DST'] = (
             df['FILIAL_DST']
             .astype(str)
-            .isin(FILIAIS_CD)
+            .isin(cls._FILIAIS_CD)
             .map({True: "CD", False: "LOJA"})
         )
 

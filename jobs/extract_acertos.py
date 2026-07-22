@@ -2,11 +2,11 @@ from __future__ import annotations
 
 import asyncio
 
-from app. use_cases.execute_pcom_validade_invoices import ExecutePcommExtractInvoices
+from app. use_cases.pcom_extract_acertos import ExecutePcommExtractAcertos
 
 async def run_pcom():
 
-    executor = ExecutePcommExtractInvoices()
+    executor = ExecutePcommExtractAcertos()
 
     await asyncio.to_thread(
         executor.execute_pcom
