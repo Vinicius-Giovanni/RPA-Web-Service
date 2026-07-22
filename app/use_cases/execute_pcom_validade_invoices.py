@@ -102,8 +102,6 @@ class ExecutePcommExtractInvoices:
 
                 # Envia os dados para o pcom
 
-                pcom.wait_ready()
-
                 pcom.send_text(text='21', row=3, column=25)
                 pcom.send_text(text=filial, row=3, column=33)
                 pcom.send_text(text=nf,row=3,column=43)

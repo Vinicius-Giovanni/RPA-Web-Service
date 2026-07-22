@@ -2,14 +2,14 @@ from __future__ import annotations
 
 import asyncio
 
-from app. use_cases.pcom_extract_acertos import ExecutePcommExtractAcertos
+from app.use_cases.pcom_extract_acertos import ExecutePcommExtractAcertos
 
 async def run_pcom():
 
     executor = ExecutePcommExtractAcertos()
 
     await asyncio.to_thread(
-        executor.execute_pcom
+        executor.execute
     )
 
 if __name__ == "__main__":
