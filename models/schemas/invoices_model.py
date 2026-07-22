@@ -1,6 +1,6 @@
 import pandas as pd
 
-from settings.pipelines_config import COLUMNS_TYPES, REQUIRED_COLUMNS
+from settings.pipelines_config import COLUMNS_TYPES, REQUIRED_COLUMNS, FILIAIS_CD
 
 class RelMercEnvNConfModel:
 
@@ -12,16 +12,20 @@ class RelMercEnvNConfModel:
 
         df['DT_EMI'] = pd.to_datetime(
             df['DT_EMI'],
-            format='%d.%m.%Y',
-            errors='coerce'
+            dayfirst=True,
+            errors='coerce',
+            format="mixed"
         )
-
-        df['VALOR_TOT'] = (
-            df['VALOR_TOT']
-            .str.strip()
-            .str.replace(".", "", regex=False)
-            .str.replace(",", ".", regex=False)
-        )
+        
+        # valor
+        if not pd.api.types.is_numeric_dtype(df['VALOR_TOT']):
+            df['VALOR_TOT'] = (
+                df['VALOR_TOT']
+                .astype('string')
+                .str.strip()
+                .str.replace(".","", regex=False)
+                .str.replace(",", ".", regex=False)
+            )
 
         df['VALOR_TOT'] = pd.to_numeric(
             df['VALOR_TOT'],
@@ -30,7 +34,38 @@ class RelMercEnvNConfModel:
 
         return df
 
+    @classmethod
+    def enrich(cls, df:pd.DataFrame) -> pd.DataFrame:
+        """
+        Enriquece os dados classificando as filiais e gerando a rota.
+        """
 
+        df = df.copy()
+
+        # Classificação da filial emissora
+        df['TIPO_FILIAL_EMI'] = (
+            df['FILIAL_EMI']
+            .astype(str)
+            .isin(FILIAIS_CD)
+            .map({True: "CD", False: "LOJA"})
+        )
+
+        # Classificação da filial destino
+        df['TIPO_FILIAL_DST'] = (
+            df['FILIAL_DST']
+            .astype(str)
+            .isin(FILIAIS_CD)
+            .map({True: "CD", False: "LOJA"})
+        )
+
+        # Monta a rota
+        df['ROTA'] = (
+            df['TIPO_FILIAL_EMI'] +
+            "-" +
+            df['TIPO_FILIAL_DST']
+        )
+
+        return df
 
     @classmethod
     def validate_schema(cls, df: pd.DataFrame) -> pd.DataFrame:

@@ -8,30 +8,34 @@ print(PATH_ORIGIN.exists())
 
 dataframe_manager = DataframeManager()
 
-df = dataframe_manager.load_txt(
+df_txt = dataframe_manager.load_txt(
     caminho=PATH_ORIGIN,
     encoding='utf-8'
 )
 
-_df = dataframe_manager.load_csv(
+df_csv = dataframe_manager.load_csv(
     caminho=PATH_BRONZE_CSV
 )
 
-RelMercEnvNConfModel.transform(df)
-RelMercEnvNConfModel.validate_schema(df)
-_df_ = RelMercEnvNConfModel.update_status(
-        df_origem=df,
-        df_historico=_df
+if not df_csv.empty:
+    df_csv = RelMercEnvNConfModel.validate_schema(df_csv)
+
+df_txt = RelMercEnvNConfModel.transform(df_txt)
+df_txt = RelMercEnvNConfModel.validate_schema(df_txt)
+df = RelMercEnvNConfModel.update_status(
+        df_origem=df_txt,
+        df_historico=df_csv
     )
+df = RelMercEnvNConfModel.enrich(df)
 
 dataframe_manager.save_csv(
     caminho=PATH_BRONZE_CSV,
-    df=_df_
+    df=df
 )
 
 dataframe_manager.save_parquet(
     caminho=PATH_GOLD_PARQUET,
-    df=_df_
+    df=df
 )
 
-print(_df_.info())
+print(df.info())

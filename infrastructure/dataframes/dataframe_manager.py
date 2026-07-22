@@ -56,7 +56,6 @@ class DataframeManager:
                     file,
                     sep=sep,
                     encoding=encoding,
-                    dtype=str,
                     usecols=columns,
                     low_memory=False
                 )
