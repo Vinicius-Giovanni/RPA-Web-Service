@@ -41,21 +41,3 @@ RelMercEnvNConfModel_FILIAIS_CD = {
     '3601', '3602', '1454', '1778'
 }
 
-
-# ExecutePcommExtractAcertosModel
-ExecutePcommExtractAcertosModel_REQUIRED_COLUMNS = [
-    "codigo",
-    "empresa",
-    "filial",
-    "descricao",
-    'tipo_de_acerto'
-]
-
-
-ExecutePcommExtractAcertosModel_COLUMNS_TYPES = {
-    "codigo": 'Int64',
-    "empresa": 'Int64',
-    'filial': 'Int64',
-    'descricao': 'string',
-    'tipo_de_acerto': 'string'
-}

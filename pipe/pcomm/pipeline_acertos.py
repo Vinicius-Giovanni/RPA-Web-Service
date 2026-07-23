@@ -1,38 +1,63 @@
 import pandas as pd
 
+from infrastructure.dataframes.dataframe_manager import DataframeManager
+
+from settings.paths import PATH_BRONZE_CSV_ACERTOS, PATH_SILVER_CSV_ACERTOR
+
+
 class AcertosPipeline:
 
     @staticmethod
-    def column_descricao(df: pd.DataFrame) -> pd.DataFrame:
-        """
-        Extrai a Nota Fiscal e a Data de Emissão da coluna 'descricao'.
+    def pipeline_acertos(dataframe_manager = DataframeManager) -> pd.DataFrame:
 
-        Exemplo:
-            NF:360052 DT EMI.: 7  2026
-
-        Resultado:
-            nota_fiscal -> 360052
-            mes_emissao -> 7
-            ano_emissao -> 2026
-        """
-
-        extraido = df['descricao'].str.extract(
-            r"NF:(?P<nota_fiscal>\d+)\s+DT EMI\.:\s*(?P<mes_emissao>\d{1,2})\s+(?P<ano_emissao>\d{4})"
+        bronze = dataframe_manager.load_csv(
+            caminho=PATH_BRONZE_CSV_ACERTOS,
+            sep='\t',
+            encoding='utf-16'
         )
 
-        df['nota_fiscal'] = pd.to_numeric(
-            extraido['nota_fiscal'],
-            errors="coerce"
-        ).astype('Int64')
+        silver = dataframe_manager.load_csv(
+            caminho=PATH_SILVER_CSV_ACERTOR,
+            sep='\t',
+            encoding='utf-16'
+        )
 
-        df['mes_emissao'] = pd.to_numeric(
-            extraido['mes_emissao'],
-            errors="coerce"
-        ).astype("Int64")
+        if silver.empty:
+            bronze = bronze.copy()
+            bronze['status'] = 'Pendente'
+            return bronze
 
-        df['ano_emissao'] = pd.to_numeric(
-            extraido['ano_emissao'],
-            errors='coerce'
-        ).astype('Int64')
+        # Inserir novos acertos
+        novos_acertos = bronze.loc[
+            ~bronze['acerto'].isin(silver['acerto'])
+        ].copy()
+
+        novos_acertos['status'] = "Pendente"
+
+        silver = pd.concat([silver, novos_acertos], ignore_index=True)
+
+        # Atualizar todos os existentes para pendente
+        silver.loc[
+            silver['acerto'].isin(bronze['acerto']),
+            "status"
+        ] = "Pendente"
+
+        # Quem não está mais na Bronze fica Resolvido
+        silver.loc[
+            ~silver['acerto'].isin(bronze['acerto']),
+            "status"
+        ] = "Resolvido"
+
+        return silver
+
+    @classmethod    
+    def execute_pipeline(self) -> pd.DataFrame:
+
+        dataframe_manager = DataframeManager()
+
+        df = AcertosPipeline.pipeline_acertos(dataframe_manager=dataframe_manager)
 
         return df
+
+
+

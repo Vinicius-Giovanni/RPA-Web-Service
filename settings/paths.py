@@ -49,5 +49,5 @@ PATH_BRONZE_CSV = Path(fr'{DATA_DIR}/Bronze (Raw Layer)/pcom_validade_invoices/d
 PATH_GOLD_PARQUET = Path(fr'{DATA_DIR}/Gold (Business Layer)/pcom_validade_invoices/data_enrich_invoices.parquet')
 
 # Pipelines -- Pcomm -- Acertos
-PATH_BRONZE_CSV_ACERTOS = Path(fr'{DATA_DIR}/Bronze (Raw Layer)/pcom_extract_acertos/extract_pcomm_acertos.csv')
-PATH_SILVER_CSV_ACERTOR = Path(fr'{DATA_DIR}/Silver (Cleansed Layer)/pcom_extract_acertos/extract_pcomm_acertos.csv')
+PATH_BRONZE_CSV_ACERTOS = Path(fr'{DATA_DIR}/Bronze (Raw Layer)/pcom_extract_acertos/bronze_extract_pcomm_acertos.csv')
+PATH_SILVER_CSV_ACERTOR = Path(fr'{DATA_DIR}/Silver (Cleansed Layer)/pcom_extract_acertos/silver_extract_pcomm_acertos.csv')
